@@ -1,16 +1,12 @@
 package com.example.ProTaskifyAPI.DTO;
 
-import com.example.ProTaskifyAPI.Models.Class;
 import com.example.ProTaskifyAPI.Models.Student;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -18,13 +14,13 @@ import java.util.Set;
 @Builder
 public class GroupDTO {
 
-    private String group_id;
+    private String id;
 
-    private String group_name;
+    private String name;
 
     private float score;
 
-    private String project_id;
+    private String projectID;
 
     private String classID;
 

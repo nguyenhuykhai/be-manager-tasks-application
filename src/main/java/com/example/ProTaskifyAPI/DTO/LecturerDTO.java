@@ -13,9 +13,9 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Builder
 public class LecturerDTO {
-    private String lecturer_id;
+    private String id;
 
-    private String lecturer_name;
+    private String name;
 
     private String email;
 

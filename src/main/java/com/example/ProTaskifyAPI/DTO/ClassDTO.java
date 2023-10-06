@@ -14,11 +14,11 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Builder
 public class ClassDTO {
-    private String class_id;
+    private String id;
 
-    private String group_name;
+    private String name;
 
-    private String semester_id;
+    private String semesterID;
 
     private String lecturerID;
 

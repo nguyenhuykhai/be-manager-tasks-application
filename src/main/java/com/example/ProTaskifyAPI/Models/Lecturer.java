@@ -1,4 +1,4 @@
-package com.example.ProTaskifyAPI.model;
+package com.example.ProTaskifyAPI.Models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -33,5 +33,5 @@ public class Lecturer {
     private boolean status;
 
     @OneToMany(mappedBy = "lecturerID")
-    Set<Class> classStudent = new HashSet<>();
+    private Set<Class> classStudent = new HashSet<>();
 }

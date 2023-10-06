@@ -1,4 +1,4 @@
-package com.example.ProTaskifyAPI.model;
+package com.example.ProTaskifyAPI.Models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

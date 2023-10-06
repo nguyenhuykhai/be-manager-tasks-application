@@ -29,4 +29,12 @@ public class GroupDTO {
     private String classID;
 
     private ArrayList<Student> groupStudents;
+
+    public GroupDTO(String group_id, String group_name, float score, String project_id, String classID) {
+        this.group_id = group_id;
+        this.group_name = group_name;
+        this.score = score;
+        this.project_id = project_id;
+        this.classID = classID;
+    }
 }

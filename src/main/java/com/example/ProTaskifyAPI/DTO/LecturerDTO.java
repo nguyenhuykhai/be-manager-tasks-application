@@ -24,4 +24,12 @@ public class LecturerDTO {
     private boolean status;
 
     private ArrayList<Class> classStudent;
+
+    public LecturerDTO(String lecturer_id, String lecturer_name, String email, String picture, boolean status) {
+        this.lecturer_id = lecturer_id;
+        this.lecturer_name = lecturer_name;
+        this.email = email;
+        this.picture = picture;
+        this.status = status;
+    }
 }

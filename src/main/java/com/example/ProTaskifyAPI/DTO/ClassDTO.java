@@ -25,4 +25,11 @@ public class ClassDTO {
     private ArrayList<Student> classStudents;
 
     private ArrayList<Group> groupStudents;
+
+    public ClassDTO(String class_id, String group_name, String semester_id, String lecturerID) {
+        this.class_id = class_id;
+        this.group_name = group_name;
+        this.semester_id = semester_id;
+        this.lecturerID = lecturerID;
+    }
 }

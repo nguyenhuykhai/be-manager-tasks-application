@@ -1,10 +1,13 @@
 package com.example.ProTaskifyAPI.Services;
 
-import com.example.ProTaskifyAPI.DTO.MsgDTO;
-import com.example.ProTaskifyAPI.DTO.StudentDTO;
+import com.example.ProTaskifyAPI.DTO.ResponseObject;
+import com.example.ProTaskifyAPI.DTO.UpdateLinkRequest;
+import org.springframework.http.ResponseEntity;
 
 public interface StudentService {
-    MsgDTO checkIfStudentInClass(String studentID);
+    ResponseEntity<ResponseObject> updateLink(UpdateLinkRequest dto);
+
+    boolean checkIfStudentInClass(String studentID);
 
     void setLeader(String studentID);
 

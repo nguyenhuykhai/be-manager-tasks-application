@@ -24,4 +24,5 @@ public class LecturerDTO {
     private boolean status;
 
     private ArrayList<Class> classStudent;
+
 }

@@ -28,7 +28,7 @@ public class Student {
   @JoinColumn(name = "group_id")
   private Group groupID;
 
-  @Column(name = "score", nullable = false)
+  @Column(name = "score")
   private float score;
 
   @Column(name = "link_facebook", length = 100)

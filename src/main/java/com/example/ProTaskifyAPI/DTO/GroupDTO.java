@@ -25,4 +25,6 @@ public class GroupDTO {
     private String classID;
 
     private ArrayList<Student> groupStudents;
+
+
 }

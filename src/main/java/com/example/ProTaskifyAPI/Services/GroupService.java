@@ -1,12 +1,12 @@
 package com.example.ProTaskifyAPI.Services;
 
 import com.example.ProTaskifyAPI.DTO.GroupDTO;
-import com.example.ProTaskifyAPI.DTO.MsgDTO;
-import com.example.ProTaskifyAPI.Models.Group;
+import com.example.ProTaskifyAPI.DTO.ResponseObject;
+import org.springframework.http.ResponseEntity;
 
 public interface GroupService {
 
-    MsgDTO createGroup(GroupDTO g);
+    ResponseEntity<ResponseObject> createGroup(GroupDTO g);
 
-    MsgDTO chooseTopic(String topic);
+    ResponseEntity<ResponseObject> chooseTopic(String topic);
 }

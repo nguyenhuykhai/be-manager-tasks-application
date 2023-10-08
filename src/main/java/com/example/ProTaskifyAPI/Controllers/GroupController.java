@@ -1,10 +1,12 @@
 package com.example.ProTaskifyAPI.Controllers;
 
 import com.example.ProTaskifyAPI.DTO.GroupDTO;
-import com.example.ProTaskifyAPI.DTO.MsgDTO;
+import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.Services.GroupService;
 import com.example.ProTaskifyAPI.Services.StudentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,15 +18,14 @@ public class GroupController {
     private final StudentService studentService;
 
     @PostMapping("/create/{studentId}")
-    public MsgDTO createGroup(@RequestBody GroupDTO group,
-                              @PathVariable("studentId") String studentId){
-        MsgDTO msg = studentService.checkIfStudentInClass(studentId);
-        if(msg.getMsgBody().isEmpty()){
+    public ResponseEntity<ResponseObject> createGroup(@RequestBody GroupDTO group,
+                                                      @PathVariable("studentId") String studentId){
+
+        if(studentService.checkIfStudentInClass(studentId)){
             studentService.setLeader(studentId);
             return groupService.createGroup(group);
-        }else {
-            return msg;
         }
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseObject("Failed", "Group is already existed", null));
     }
 
     @PostMapping("/topic")

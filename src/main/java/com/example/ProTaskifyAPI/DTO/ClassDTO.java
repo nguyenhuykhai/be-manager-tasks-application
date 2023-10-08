@@ -25,4 +25,5 @@ public class ClassDTO {
     private ArrayList<Student> classStudents;
 
     private ArrayList<Group> groupStudents;
+
 }

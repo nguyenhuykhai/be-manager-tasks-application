@@ -1,13 +1,15 @@
 package com.example.ProTaskifyAPI.ServiceImpl;
 
 import com.example.ProTaskifyAPI.DTO.GroupDTO;
-import com.example.ProTaskifyAPI.DTO.MsgDTO;
+import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.Models.Group;
+import com.example.ProTaskifyAPI.Models.Student;
 import com.example.ProTaskifyAPI.Repositories.ClassRepo;
 import com.example.ProTaskifyAPI.Repositories.GroupRepo;
 import com.example.ProTaskifyAPI.Services.GroupService;
-import com.example.ProTaskifyAPI.Services.MsgService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -19,12 +21,11 @@ public class GroupServiceImpl implements GroupService {
     private final ClassRepo classRepo;
 
     @Override
-    public MsgDTO createGroup(GroupDTO g) {
+    public ResponseEntity<ResponseObject> createGroup(GroupDTO g) {
         if(checkExistedGroup(g)){
-            return MsgService.generateMsg("Fail", "Group is already existed");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseObject("Failed", "Group is already existed", null));
         }else{
-            addGroup(g);
-            return MsgService.generateMsg("Successful", "Create group successfully");
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("Successful", "Group successfully be created", addGroup(g)));
         }
     }
 
@@ -32,8 +33,8 @@ public class GroupServiceImpl implements GroupService {
         return groupRepo.findById(g.getId()).orElse(null) != null;
     }
 
-    private void addGroup(GroupDTO g){
-        groupRepo.save(
+    private Group addGroup(GroupDTO g){
+        return groupRepo.save(
                 new Group().builder()
                         .group_id(g.getId())
                         .group_name(g.getName())
@@ -45,7 +46,7 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public MsgDTO chooseTopic(String topic) {
+    public ResponseEntity<ResponseObject> chooseTopic(String topic) {
         return null;
     }
 }

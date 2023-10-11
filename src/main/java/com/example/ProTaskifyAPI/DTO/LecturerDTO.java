@@ -13,7 +13,7 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Builder
 public class LecturerDTO {
-    private String id;
+    private int id;
 
     private String name;
 

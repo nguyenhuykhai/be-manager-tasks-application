@@ -17,7 +17,8 @@ import java.util.Set;
 @Builder
 public class Lecturer {
     @Id
-    private String lecturer_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int lecturer_id;
 
     @Column(name = "lecturer_name", length = 50)
     private String lecturer_name;
@@ -34,4 +35,7 @@ public class Lecturer {
 
     @OneToMany(mappedBy = "lecturerID")
     private Set<Class> classStudent = new HashSet<>();
+
+    @OneToMany(mappedBy = "lecturerID")
+    private Set<Project> projectSet = new HashSet<>();
 }

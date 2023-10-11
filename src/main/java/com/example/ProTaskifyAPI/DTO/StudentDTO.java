@@ -14,13 +14,13 @@ import lombok.NoArgsConstructor;
 @Builder
 public class StudentDTO {
 
-    private String id;
+    private int id;
 
     private String name;
 
-    private String classID;
+    private int classID;
 
-    private String groupID;
+    private int groupID;
 
     private float score;
 

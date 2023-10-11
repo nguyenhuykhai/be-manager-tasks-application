@@ -23,17 +23,17 @@ public class StudentServiceImpl implements StudentService {
     private final StudentRepo studentRepo;
 
     @Override
-    public boolean checkIfStudentInClass(String studentID) {
+    public boolean checkIfStudentInClass(int studentID) {
         Student s = studentRepo.findById(studentID).orElse(null);
 
-        if (s != null && s.getClassID().getClass_id() != null && !s.getClassID().getClass_id().isEmpty()) {
+        if (s != null && s.getClassID() != null) {
             return true;
         }
         return false;
     }
 
     @Override
-    public void setLeader(String studentID) {
+    public void setLeader(int studentID) {
         Student s = studentRepo.findById(studentID).orElse(null);
         if (s != null) {
             s.set_leader(true);

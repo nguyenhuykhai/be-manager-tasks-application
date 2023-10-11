@@ -6,6 +6,7 @@ import com.example.ProTaskifyAPI.Models.Group;
 import com.example.ProTaskifyAPI.Models.Student;
 import com.example.ProTaskifyAPI.Repositories.ClassRepo;
 import com.example.ProTaskifyAPI.Repositories.GroupRepo;
+import com.example.ProTaskifyAPI.Repositories.ProjectRepo;
 import com.example.ProTaskifyAPI.Services.GroupService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,8 @@ public class GroupServiceImpl implements GroupService {
     private final GroupRepo groupRepo;
 
     private final ClassRepo classRepo;
+
+    private final ProjectRepo projectRepo;
 
     @Override
     public ResponseEntity<ResponseObject> createGroup(GroupDTO g) {
@@ -40,7 +43,7 @@ public class GroupServiceImpl implements GroupService {
                         .group_name(g.getName())
                         .score(g.getScore())
                         .classID(classRepo.findById(g.getClassID()).orElse(null))
-                        .project_id(g.getProjectID())
+                        .projectID(projectRepo.findById(g.getProjectID()).orElse(null))
                         .build()
         );
     }

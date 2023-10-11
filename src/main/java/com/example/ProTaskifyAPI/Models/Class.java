@@ -17,12 +17,15 @@ import java.util.Set;
 @Builder
 public class Class {
     @Id
-    private String class_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int class_id;
 
     @Column(name = "class_name", length = 50)
     private String group_name;
 
-    private String semester_id;
+    @ManyToOne
+    @JoinColumn(name = "semester_id")
+    private Semester semesterID;
 
     @ManyToOne
     @JoinColumn(name = "lecturer_id")

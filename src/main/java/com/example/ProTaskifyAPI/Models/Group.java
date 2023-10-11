@@ -17,14 +17,17 @@ import java.util.Set;
 @Builder
 public class Group {
     @Id
-    private String group_id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int group_id;
 
     @Column(name = "group_name", length = 50)
     private String group_name;
     @Column(name = "score")
     private float score;
 
-    private String project_id;
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project projectID;
 
     @ManyToOne
     @JoinColumn(name = "class_id")

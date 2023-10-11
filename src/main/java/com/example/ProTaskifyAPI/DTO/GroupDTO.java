@@ -14,15 +14,15 @@ import java.util.ArrayList;
 @Builder
 public class GroupDTO {
 
-    private String id;
+    private int id;
 
     private String name;
 
     private float score;
 
-    private String projectID;
+    private int projectID;
 
-    private String classID;
+    private int classID;
 
     private ArrayList<Student> groupStudents;
 

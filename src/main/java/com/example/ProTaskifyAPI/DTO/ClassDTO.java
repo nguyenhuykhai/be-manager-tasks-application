@@ -14,13 +14,13 @@ import java.util.ArrayList;
 @NoArgsConstructor
 @Builder
 public class ClassDTO {
-    private String id;
+    private int id;
 
     private String name;
 
-    private String semesterID;
+    private int semesterID;
 
-    private String lecturerID;
+    private int lecturerID;
 
     private ArrayList<Student> classStudents;
 

@@ -19,7 +19,7 @@ public class GroupController {
 
     @PostMapping("/create/{studentId}")
     public ResponseEntity<ResponseObject> createGroup(@RequestBody GroupDTO group,
-                                                      @PathVariable("studentId") String studentId){
+                                                      @PathVariable("studentId") int studentId){
 
         if(studentService.checkIfStudentInClass(studentId)){
             studentService.setLeader(studentId);

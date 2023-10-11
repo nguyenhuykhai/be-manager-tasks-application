@@ -7,8 +7,8 @@ import org.springframework.http.ResponseEntity;
 public interface StudentService {
     ResponseEntity<ResponseObject> updateLink(UpdateLinkRequest dto);
 
-    boolean checkIfStudentInClass(String studentID);
+    boolean checkIfStudentInClass(int studentID);
 
-    void setLeader(String studentID);
+    void setLeader(int studentID);
 
 }

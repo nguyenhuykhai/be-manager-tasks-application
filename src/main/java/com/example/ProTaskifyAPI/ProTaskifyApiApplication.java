@@ -24,7 +24,6 @@ public class ProTaskifyApiApplication {
 			public void run(String... args) throws Exception {
 				Student student = Student.builder()
 						.score(3.2f)
-						.student_id("SU1")
 						.about("")
 						.link_facebook("https://www.facebook.com/hau.chu.334/")
 						.github("https://github.com/RankillerDY")

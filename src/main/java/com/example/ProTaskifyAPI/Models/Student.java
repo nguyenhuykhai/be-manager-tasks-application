@@ -5,6 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
 
 @Entity
 @Data
@@ -12,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "student")
 @Builder
-public class Student {
+public class Student implements UserDetails {
   @Id
   @Column(name = "student_id")
   @GeneratedValue(strategy = GenerationType.AUTO)
@@ -38,6 +42,9 @@ public class Student {
   @Column(name = "email", length = 50)
   private String email;
 
+  @Column(name = "email", length = 50)
+  private String password;
+
   @Column(name = "github", length = 50)
   private String github;
 
@@ -56,4 +63,39 @@ public class Student {
 
   @Column(name = "is_leader")
   private boolean is_leader;
+
+  @Override
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return null;
+  }
+
+  @Override
+  public String getPassword() {
+    return password;
+  }
+
+  @Override
+  public String getUsername() {
+    return email;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  public boolean isEnabled() {
+    return true;
+  }
 }

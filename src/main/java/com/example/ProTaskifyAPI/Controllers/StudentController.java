@@ -7,10 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,8 +18,11 @@ public class StudentController {
 
     @PostMapping("/updatelink")
     public ResponseEntity<ResponseObject> updateLink(@RequestBody UpdateLinkRequest obj) {
-        logger.info(obj.toString());
         return studentService.updateLink(obj);
     }
 
+    @GetMapping("/get-all")
+    public ResponseEntity<ResponseObject> updateLink() {
+        return studentService.getAll();
+    }
 }

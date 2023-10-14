@@ -9,16 +9,18 @@ import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
-
     final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private final StudentRepo studentRepo;
 
@@ -41,6 +43,12 @@ public class StudentServiceImpl implements StudentService {
         }
 
     }
+
+    @Override
+    public ResponseEntity<ResponseObject> getAll() {
+        return ResponseEntity.ok().body(new ResponseObject("Successful", "Get all student", studentRepo.findAll()));
+    }
+
 
     @Override
     public ResponseEntity<ResponseObject> updateLink(UpdateLinkRequest obj) {

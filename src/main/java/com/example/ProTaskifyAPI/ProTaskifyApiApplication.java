@@ -22,14 +22,25 @@ public class ProTaskifyApiApplication {
 		return new CommandLineRunner() {
 			@Override
 			public void run(String... args) throws Exception {
-				Student student = Student.builder()
+				Student student1 = Student.builder()
 						.score(3.2f)
 						.about("")
 						.link_facebook("https://www.facebook.com/hau.chu.334/")
 						.github("https://github.com/RankillerDY")
 						.email("abc@gmail.com")
+						.is_leader(false)
 						.build();
-				studentRepo.save(student);
+				studentRepo.save(student1);
+
+				Student student2 = Student.builder()
+						.score(3.2f)
+						.about("")
+						.link_facebook("https://www.facebook.com/hau.chu.334/")
+						.github("https://github.com/RankillerDY")
+						.email("abc@gmail.com")
+						.is_leader(true)
+						.build();
+				studentRepo.save(student2);
 			}
 		};
 	}

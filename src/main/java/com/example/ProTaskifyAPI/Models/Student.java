@@ -1,14 +1,18 @@
 package com.example.ProTaskifyAPI.Models;
 
+import com.example.ProTaskifyAPI.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Data
@@ -42,7 +46,7 @@ public class Student implements UserDetails {
   @Column(name = "email", length = 50)
   private String email;
 
-  @Column(name = "email", length = 50)
+  @Column(name = "password", length = 50)
   private String password;
 
   @Column(name = "github", length = 50)
@@ -66,7 +70,7 @@ public class Student implements UserDetails {
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    return null;
+    return grantedAuthorities();
   }
 
   @Override
@@ -97,5 +101,21 @@ public class Student implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  public List<SimpleGrantedAuthority> grantedAuthorities() {
+    List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+    if(this.is_leader()) {
+      Role.LEADER.getPermission().forEach(permission -> {
+        authorities.add(new SimpleGrantedAuthority(permission.getPermission()));
+      });
+    }
+    if(!this.is_leader()) {
+      Role.STUDENT.getPermission().forEach(permission -> {
+        authorities.add(new SimpleGrantedAuthority(permission.getPermission()));
+      });
+    }
+    authorities.add(new SimpleGrantedAuthority("ROLE_" + (this.is_leader ? Role.LEADER.name() : Role.STUDENT.name())));
+    return authorities;
   }
 }

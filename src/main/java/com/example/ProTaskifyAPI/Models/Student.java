@@ -118,4 +118,5 @@ public class Student implements UserDetails {
     authorities.add(new SimpleGrantedAuthority("ROLE_" + (this.is_leader ? Role.LEADER.name() : Role.STUDENT.name())));
     return authorities;
   }
+
 }

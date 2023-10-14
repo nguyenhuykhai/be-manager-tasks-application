@@ -1,5 +1,6 @@
 package com.example.ProTaskifyAPI.ServiceImpl;
 
+import com.example.ProTaskifyAPI.DTO.ListStudentResponse;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.UpdateLinkRequest;
 import com.example.ProTaskifyAPI.Models.Student;
@@ -16,6 +17,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,7 +25,7 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private final StudentRepo studentRepo;
-
+    private List<ListStudentResponse> studentList;
     @Override
     public boolean checkIfStudentInClass(int studentID) {
         Student s = studentRepo.findById(studentID).orElse(null);
@@ -46,7 +48,14 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public ResponseEntity<ResponseObject> getAll() {
-        return ResponseEntity.ok().body(new ResponseObject("Successful", "Get all student", studentRepo.findAll()));
+        try {
+            studentList = studentRepo.getAll();
+            logger.info("Return list of user");
+            return ResponseEntity.ok(new ResponseObject("Successful", "Found student", studentList));
+        } catch (Exception e) {
+            studentList = Collections.emptyList();
+            return ResponseEntity.ok(new ResponseObject("Failed", "Not found student", studentList));
+        }
     }
 
 

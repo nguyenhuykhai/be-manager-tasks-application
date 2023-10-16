@@ -25,4 +25,20 @@ public class StudentController {
     public ResponseEntity<ResponseObject> updateLink() {
         return studentService.getAll();
     }
+
+    @PutMapping("/invite-group")
+    public ResponseEntity<ResponseObject> sendInvitation(
+            @RequestParam(name = "groupID", required = true) Integer groupID,
+            @RequestParam(name = "studentID", required = true) Integer studentID
+    ) {
+        return studentService.inviteGroup(groupID, studentID);
+    }
+
+    @PutMapping("/accept-invitation")
+    public ResponseEntity<ResponseObject> acceptInvitation(
+            @RequestParam(name = "groupID", required = true) Integer groupID,
+            @RequestParam(name = "studentID", required = true) Integer studentID
+    ) {
+        return studentService.acceptInvitation(groupID, studentID);
+    }
 }

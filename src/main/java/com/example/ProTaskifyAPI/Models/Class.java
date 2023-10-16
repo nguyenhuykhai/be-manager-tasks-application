@@ -21,7 +21,7 @@ public class Class {
     private int class_id;
 
     @Column(name = "class_name", length = 50)
-    private String group_name;
+    private String class_name;
 
     @ManyToOne
     @JoinColumn(name = "semester_id")

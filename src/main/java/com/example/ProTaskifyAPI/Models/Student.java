@@ -68,6 +68,9 @@ public class Student implements UserDetails {
   @Column(name = "is_leader")
   private boolean is_leader;
 
+  @Column(name = "pending")
+  private byte[] pending;
+
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return grantedAuthorities();

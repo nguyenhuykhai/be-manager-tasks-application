@@ -38,7 +38,7 @@ public class GroupServiceImpl implements GroupService {
 
     private Group addGroup(GroupDTO g){
         return groupRepo.save(
-                new Group().builder()
+                Group.builder()
                         .group_id(g.getId())
                         .group_name(g.getName())
                         .score(g.getScore())
@@ -48,8 +48,8 @@ public class GroupServiceImpl implements GroupService {
         );
     }
 
-    @Override
-    public ResponseEntity<ResponseObject> chooseTopic(String topic) {
-        return null;
-    }
+//    @Override
+//    public ResponseEntity<ResponseObject> chooseTopic(String topic) {
+//        return null;
+//    }
 }

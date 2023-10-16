@@ -3,17 +3,19 @@ package com.example.ProTaskifyAPI.ServiceImpl;
 import com.example.ProTaskifyAPI.DTO.ListStudentResponse;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.UpdateLinkRequest;
+import com.example.ProTaskifyAPI.Models.Group;
 import com.example.ProTaskifyAPI.Models.Student;
+import com.example.ProTaskifyAPI.Repositories.GroupRepo;
 import com.example.ProTaskifyAPI.Repositories.StudentRepo;
 import com.example.ProTaskifyAPI.Services.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
@@ -25,15 +27,13 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     final Logger logger = LoggerFactory.getLogger(StudentServiceImpl.class);
     private final StudentRepo studentRepo;
+    private final GroupRepo groupRepo;
     private List<ListStudentResponse> studentList;
     @Override
     public boolean checkIfStudentInClass(int studentID) {
         Student s = studentRepo.findById(studentID).orElse(null);
 
-        if (s != null && s.getClassID() != null) {
-            return true;
-        }
-        return false;
+        return s != null && s.getClassID() != null;
     }
 
     @Override
@@ -54,10 +54,72 @@ public class StudentServiceImpl implements StudentService {
             return ResponseEntity.ok(new ResponseObject("Successful", "Found student", studentList));
         } catch (Exception e) {
             studentList = Collections.emptyList();
-            return ResponseEntity.ok(new ResponseObject("Failed", "Not found student", studentList));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("Failed", "Not found student", studentList));
         }
     }
 
+    @Override
+    public ResponseEntity<ResponseObject> inviteGroup(int groupID, int studentID) {
+        Group group = groupRepo.findById(groupID).orElse(null);
+        Student student = studentRepo.findById(studentID).orElse(null);
+        if(group == null || student == null) {
+            return ResponseEntity.ok(new ResponseObject("Failed", "Not found student or group", null));
+        }
+        try {
+            byte[] serializeData = student.getPending();
+            if(serializeData == null) {
+                ArrayList<Integer> classRoom = new ArrayList<>();
+                classRoom.add(groupID); //Thêm học sinh vô group
+
+                serializeData = writeArrayToByteArray(classRoom); // mã hóa class room
+                student.setPending(serializeData); // thay đổi giá trị của pending
+                return ResponseEntity.ok(new ResponseObject("Successful", "Invite student to group successful", readByteToArray(student.getPending()), studentRepo.save(student))); // update student đó
+            }
+            List<Integer> classRoom = readByteToArray(serializeData);
+            classRoom.add(groupID);
+
+            serializeData = writeArrayToByteArray(classRoom);
+            student.setPending(serializeData);
+            return ResponseEntity.ok(new ResponseObject("Successful", "Invite student to group successful", readByteToArray(student.getPending()), studentRepo.save(student)));
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("Failed", "Not found student", e.getMessage()));
+        }
+
+    }
+
+    @Override
+    public ResponseEntity<ResponseObject> acceptInvitation(Integer groupID, Integer studentID) {
+        Group group = groupRepo.findById(groupID).orElse(null);
+        Student student = studentRepo.findById(studentID).orElse(null);
+        if(group == null || student == null) {
+            return ResponseEntity.ok(new ResponseObject("Failed", "Not found student or group", null));
+        }
+        try {
+            byte[] serializeData = student.getPending();
+            List<Integer> invites = readByteToArray(serializeData);
+            if(invites.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("Failed", "No invitation", null)); // update student đó
+            }
+            if(student.getGroupID() != null) {
+                return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject("Failed", "Student already in class", null));
+            }
+
+            if(invites.contains(groupID)) {
+                student.setGroupID(group);
+                invites.clear();
+                student.setPending(writeArrayToByteArray(invites));
+
+                return ResponseEntity.ok(new ResponseObject("Successful", "Student join to group successful", studentRepo.save(student)));
+            } else {
+                return ResponseEntity.ok(new ResponseObject("Failed", "No invitation was found", invites,null));
+            }
+
+        } catch(Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("Failed", "Not found student", e.getMessage()));
+        }
+
+    }
 
     @Override
     public ResponseEntity<ResponseObject> updateLink(UpdateLinkRequest obj) {
@@ -116,11 +178,56 @@ public class StudentServiceImpl implements StudentService {
     }
 
     public boolean isValidLinkEmail(String email) {
-        if (email.contains("@gmail.com")) {
-            return true;
-        }
-
-        return false;
+        return email.contains("@gmail.com");
     }
 
+    public byte[] writeArrayToByteArray(List<Integer> pendingList) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+
+        oos.writeObject(pendingList); // This help write the specific object into an output stream
+        byte[] serializeData = baos.toByteArray();
+        oos.close();
+
+        return serializeData;
+    }
+
+    public List<Integer> readByteToArray(byte[] serializeData) throws ClassNotFoundException, IOException {
+        if(serializeData == null) {
+            return Collections.emptyList();
+        }
+        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(serializeData));
+        ArrayList<Integer> deserializeArray = (ArrayList<Integer>) ois.readObject();
+        ois.close();
+
+        return deserializeArray;
+    }
+
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+        ArrayList<String> namesList
+                = new ArrayList<>();
+
+        namesList.add("Geeks");
+        namesList.add("for");
+        namesList.add("Geeks");
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(baos);
+
+        oos.writeObject(namesList); // This help write the specific object into an output stream
+        byte[] serializeData = baos.toByteArray();
+        System.out.println("serialize data before " + serializeData.length);
+        oos.close();
+
+        ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(serializeData));
+        ArrayList<String> deserializeArray = (ArrayList<String>) ois.readObject();
+        ois.close();
+
+
+//        for(String item : deserializeArray) {
+//            System.out.println("Item value " + item);
+//        }
+
+    }
 }

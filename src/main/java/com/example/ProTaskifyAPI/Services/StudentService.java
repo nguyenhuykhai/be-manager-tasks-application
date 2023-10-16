@@ -15,4 +15,8 @@ public interface StudentService {
     void setLeader(int studentID);
 
     ResponseEntity<ResponseObject> getAll();
+
+    ResponseEntity<ResponseObject> inviteGroup(int groupID, int studentID);
+
+    ResponseEntity<ResponseObject> acceptInvitation(Integer groupID, Integer studentID);
 }

@@ -8,5 +8,5 @@ public interface GroupService {
 
     ResponseEntity<ResponseObject> createGroup(GroupDTO g);
 
-    ResponseEntity<ResponseObject> chooseTopic(String topic);
+//    ResponseEntity<ResponseObject> chooseTopic(String topic);
 }

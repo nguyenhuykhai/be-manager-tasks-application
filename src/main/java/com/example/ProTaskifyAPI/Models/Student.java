@@ -46,7 +46,7 @@ public class Student implements UserDetails {
   @Column(name = "email", length = 50)
   private String email;
 
-  @Column(name = "password", length = 50)
+  @Column(name = "password", length = Integer.MAX_VALUE)
   private String password;
 
   @Column(name = "github", length = 50)
@@ -70,6 +70,9 @@ public class Student implements UserDetails {
 
   @Column(name = "pending")
   private byte[] pending;
+
+  @OneToMany(mappedBy = "user")
+  private List<Tokens> tokens;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -107,16 +110,13 @@ public class Student implements UserDetails {
   }
 
   public List<SimpleGrantedAuthority> grantedAuthorities() {
+    System.out.println("I'm Running");
     List<SimpleGrantedAuthority> authorities = new ArrayList<>();
     if(this.is_leader()) {
-      Role.LEADER.getPermission().forEach(permission -> {
-        authorities.add(new SimpleGrantedAuthority(permission.getPermission()));
-      });
+      Role.LEADER.getPermission().forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission.getPermission())));
     }
     if(!this.is_leader()) {
-      Role.STUDENT.getPermission().forEach(permission -> {
-        authorities.add(new SimpleGrantedAuthority(permission.getPermission()));
-      });
+      Role.STUDENT.getPermission().forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission.getPermission())));
     }
     authorities.add(new SimpleGrantedAuthority("ROLE_" + (this.is_leader ? Role.LEADER.name() : Role.STUDENT.name())));
     return authorities;

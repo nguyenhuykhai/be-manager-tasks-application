@@ -22,7 +22,7 @@ public class StudentController {
     }
 
     @GetMapping("/get-all")
-    public ResponseEntity<ResponseObject> updateLink() {
+    public ResponseEntity<ResponseObject> getStudents() {
         return studentService.getAll();
     }
 

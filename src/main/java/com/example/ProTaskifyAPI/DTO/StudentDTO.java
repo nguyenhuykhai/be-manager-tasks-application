@@ -14,15 +14,17 @@ import lombok.NoArgsConstructor;
 @Builder
 public class StudentDTO {
 
-    private int id;
+    private Integer id;
+
+    private String password;
 
     private String name;
 
-    private int classID;
+    private Integer classID;
 
-    private int groupID;
+    private Integer groupID;
 
-    private float score;
+    private Float score;
 
     private String linkFacebook;
 
@@ -38,5 +40,5 @@ public class StudentDTO {
 
     private String status;
 
-    private boolean isLeader;
+    private Boolean isLeader;
 }

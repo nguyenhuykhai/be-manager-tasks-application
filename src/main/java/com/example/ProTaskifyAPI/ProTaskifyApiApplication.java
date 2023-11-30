@@ -10,6 +10,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ public class ProTaskifyApiApplication {
 	private final SemesterRepo semesterRepo;
 	private final ClassRepo classRepo;
 	private final ArrayList<Integer> classArray;
+	private final PasswordEncoder passwordEncoder;
 	public static void main(String[] args) {
 		SpringApplication.run(ProTaskifyApiApplication.class, args);
 	}
@@ -56,9 +58,10 @@ public class ProTaskifyApiApplication {
 						.about("")
 						.link_facebook("https://www.facebook.com/hau.chu.334/")
 						.github("https://github.com/RankillerDY")
-						.email("abc@gmail.com")
+						.email("abc1@gmail.com")
 						.classID(classRepo.findById(1).orElse(null))
 						.is_leader(false)
+						.password(passwordEncoder.encode("123"))
 //						.pending(studentService.writeArrayToByteArray(classArray))
 						.build();
 				students.add(student1);
@@ -68,7 +71,9 @@ public class ProTaskifyApiApplication {
 						.about("")
 						.link_facebook("https://www.facebook.com/hau.chu.334/")
 						.github("https://github.com/RankillerDY")
-						.email("abc@gmail.com")
+						.password("123")
+						.email("abc2@gmail.com")
+						.password(passwordEncoder.encode("123"))
 						.classID(classRepo.findById(2).orElse(null))
 						.is_leader(true)
 						.build();

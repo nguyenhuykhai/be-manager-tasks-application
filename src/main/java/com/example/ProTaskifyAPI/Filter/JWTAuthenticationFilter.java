@@ -1,5 +1,6 @@
 package com.example.ProTaskifyAPI.Filter;
 
+import com.example.ProTaskifyAPI.Repositories.TokensRepo;
 import com.example.ProTaskifyAPI.ServiceImpl.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -23,6 +24,7 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
     //    private final Logger logger = LoggerFactory.getLogger(JWTAuthenticationFilter.class);
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+    private final TokensRepo tokensRepo;
 
     @Override
     protected void doFilterInternal(
@@ -41,7 +43,8 @@ public class JWTAuthenticationFilter extends OncePerRequestFilter {
         email = jwtService.extractEmail(token);
         if (email != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(email);
-            if (jwtService.isValidToken(token, userDetails)) {
+            var isTokenValid = tokensRepo.findByToken(token).map(t -> !t.isRevoke() && !t.isExpired()).orElse(false);
+            if (jwtService.isValidToken(token, userDetails) && isTokenValid) {
                 UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                         userDetails,
                         null,

@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface TokensRepo extends JpaRepository<Tokens, Integer> {
     @Query("""
-            select t from Tokens t inner join Student u on t.user.student_id = u.student_id 
+            select t from Tokens t inner join Student u on t.student.student_id = u.student_id 
             where u.student_id = :studentID and (t.expired = false or t.revoke = false)
             """)
     List<Tokens> findAllValidTokenByUser(@Param(value = "studentID") Integer userid);

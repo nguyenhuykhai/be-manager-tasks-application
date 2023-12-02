@@ -48,4 +48,7 @@ public class Project {
 
     @OneToMany(mappedBy = "projectID")
     private Set<Group> projectSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "project")
+    private Set<Process> processSet = new HashSet<>();
 }

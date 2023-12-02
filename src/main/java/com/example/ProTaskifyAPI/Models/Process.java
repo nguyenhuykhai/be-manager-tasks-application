@@ -13,16 +13,18 @@ import lombok.NoArgsConstructor;
 @Table(name = "process")
 @Builder
 public class Process {
-    @Id
-    private int project_id;
+    @EmbeddedId
+    ProcessCompositeKey id;
 
-    @Id
+    @ManyToOne
+    @JoinColumn(name = "project_id")
+    private Project project;
+
     @ManyToOne
     @JoinColumn(name = "sprint_id")
     private Sprint sprint;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "feature")
+    @JoinColumn(name = "feature_id")
     private Feature feature;
 }

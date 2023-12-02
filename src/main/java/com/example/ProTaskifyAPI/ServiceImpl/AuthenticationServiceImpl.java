@@ -112,7 +112,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private void SavedUserToken(String jwtToken, Student savedUser) {
         Tokens token = Tokens.builder()
                 .token(jwtToken)
-                .user(savedUser)
+                .student(savedUser)
                 .tokenType(TokenType.BEARER)
                 .revoke(false)
                 .expired(false)

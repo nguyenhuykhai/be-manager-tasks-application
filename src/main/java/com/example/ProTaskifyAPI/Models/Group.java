@@ -22,8 +22,12 @@ public class Group {
 
     @Column(name = "group_name", length = 50)
     private String group_name;
+
     @Column(name = "score")
     private float score;
+
+    @Column(name = "status", length = 50)
+    private boolean status;
 
     @ManyToOne
     @JoinColumn(name = "project_id")
@@ -35,4 +39,7 @@ public class Group {
 
     @OneToMany(mappedBy = "groupID")
     private Set<Student> groupStudents = new HashSet<>();
+
+    @OneToMany(mappedBy = "group")
+    private Set<Messages> messagesSet = new HashSet<>();
 }

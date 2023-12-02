@@ -71,8 +71,14 @@ public class Student implements UserDetails {
   @Column(name = "pending")
   private byte[] pending;
 
-  @OneToMany(mappedBy = "user")
+  @OneToMany(mappedBy = "student")
   private List<Tokens> tokens;
+
+  @OneToMany(mappedBy = "student")
+  private List<Star> starList;
+
+  @OneToMany(mappedBy = "student")
+  private List<StudentTask> studentTaskList;
 
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -23,6 +23,9 @@ public class Class {
     @Column(name = "class_name", length = 50)
     private String class_name;
 
+    @Column(name = "status", length = 50)
+    private boolean status;
+
     @ManyToOne
     @JoinColumn(name = "semester_id")
     private Semester semesterID;

@@ -26,7 +26,7 @@ public class Tokens {
     private boolean revoke;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Student user;
+    @JoinColumn(name = "student_id")
+    private Student student;
 
 }

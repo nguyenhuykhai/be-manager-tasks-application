@@ -38,4 +38,8 @@ public class Lecturer {
 
     @OneToMany(mappedBy = "lecturerID")
     private Set<Project> projectSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "lecturer")
+    private Set<Messages> messageSet = new HashSet<>();
+
 }

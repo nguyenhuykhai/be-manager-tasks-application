@@ -1,6 +1,7 @@
-package com.example.ProTaskifyAPI.DTO;
+package com.example.ProTaskifyAPI.DTO.Response;
 
-import com.example.ProTaskifyAPI.Models.Messages;
+import com.example.ProTaskifyAPI.Models.Class;
+import com.example.ProTaskifyAPI.Models.Process;
 import com.example.ProTaskifyAPI.Models.Project;
 import com.example.ProTaskifyAPI.Models.Student;
 import lombok.AllArgsConstructor;
@@ -8,29 +9,22 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class GroupDTO {
+public class GroupProjectDetailsDTO {
+    private int group_id;
 
-    private int id;
-
-    private String name;
+    private String group_name;
 
     private float score;
 
-    private int projectID;
+    private Project projectID;
 
-    private int classID;
+    private Class classID;
 
     private Set<Student> groupStudents;
-
-    private Set<Messages> messagesSet;
-
-
 }

@@ -28,4 +28,7 @@ public class Feature {
 
     @OneToMany(mappedBy = "feature")
     private Set<Process> processSet = new HashSet<>();
+
+    @OneToMany(mappedBy = "feature")
+    private Set<Task> taskSet = new HashSet<>();
 }

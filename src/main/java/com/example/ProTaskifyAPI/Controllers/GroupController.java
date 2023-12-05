@@ -27,6 +27,12 @@ public class GroupController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseObject("Failed", "Group is already existed", null));
     }
 
+    @GetMapping("/details")
+    public ResponseEntity<ResponseObject> groupDetails(@RequestParam(name = "groupId") int groupId,
+                                                      @RequestParam(name = "classId") int classId) {
+        return groupService.findGroupProjectDetails(groupId, classId);
+    }
+
 //    @PostMapping("/topic")
 //    public String chooseTopic(@RequestBody String topic){
 //        return groupService.chooseTopic();

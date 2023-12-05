@@ -37,4 +37,8 @@ public class Task {
 
     @OneToMany(mappedBy = "task")
     private Set<StudentTask> studentTaskSet = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "feature_id")
+    private Feature feature;
 }

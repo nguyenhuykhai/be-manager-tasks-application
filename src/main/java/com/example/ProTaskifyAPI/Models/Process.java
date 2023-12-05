@@ -1,5 +1,6 @@
 package com.example.ProTaskifyAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,7 @@ public class Process {
     ProcessCompositeKey id;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "project_id")
     private Project project;
 

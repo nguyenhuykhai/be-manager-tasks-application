@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface FeatureRepo extends JpaRepository<Feature, Integer> {
+
 }

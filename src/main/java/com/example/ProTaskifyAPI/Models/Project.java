@@ -47,7 +47,7 @@ public class Project {
     private String non_functional_requirements;
 
     @OneToMany(mappedBy = "projectID")
-    private Set<Group> projectSet = new HashSet<>();
+    private Set<Group> groupSet = new HashSet<>();
 
     @OneToMany(mappedBy = "project")
     private Set<Process> processSet = new HashSet<>();

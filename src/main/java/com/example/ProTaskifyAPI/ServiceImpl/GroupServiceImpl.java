@@ -1,6 +1,7 @@
 package com.example.ProTaskifyAPI.ServiceImpl;
 
 import com.example.ProTaskifyAPI.DTO.GroupDTO;
+import com.example.ProTaskifyAPI.DTO.ProcessDTO;
 import com.example.ProTaskifyAPI.DTO.Response.GroupProjectDetailsDTO;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.Models.Group;
@@ -44,7 +45,7 @@ public class GroupServiceImpl implements GroupService {
 
   @Override
   public ResponseEntity<ResponseObject> findGroupProjectDetails(
-      Integer group_id, Integer class_id) {
+          Integer group_id, Integer class_id) {
     try {
       //Initialize variables
       var group = groupRepo.findGroupProjectDetails(group_id, class_id).orElse(null);
@@ -52,24 +53,46 @@ public class GroupServiceImpl implements GroupService {
       var project = projectRepo.findGroupProjectDetails(group_id, class_id).orElse(null);
       //Build custom response
       GroupProjectDetailsDTO groupProjectDetailsDTO =
-          GroupProjectDetailsDTO.builder()
-              .group_id(group.getGroup_id())
-              .classID(group.getClassID())
-              .groupStudents(group.getGroupStudents())
-              .projectID(project)
-              .group_name(group.getGroup_name())
-              .score(group.getScore())
-              .build();
+              GroupProjectDetailsDTO.builder()
+                      .group_id(group.getGroup_id())
+                      .classID(group.getClassID())
+                      .groupStudents(group.getGroupStudents())
+                      .projectID(project)
+                      .group_name(group.getGroup_name())
+                      .score(group.getScore())
+                      .build();
       logger.info("Return group details");
       //Set up entity
       groupProjectDetailsDTO.getProjectID().setProcessSet(process);
 
 
       return ResponseEntity.ok(
-          new ResponseObject("Successful", "Found group", groupProjectDetailsDTO));
+              new ResponseObject("Successful", "Found group", groupProjectDetailsDTO));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-          .body(new ResponseObject("Failed", "No found group", null));
+              .body(new ResponseObject("Failed", "No found group", null));
+    }
+  }
+
+  @Override
+  public ResponseEntity<ResponseObject> findProcessDetails(
+          Integer group_id, Integer class_id) {
+    try {
+      //Initialize variables
+      var process = processRepo.findProcessDetails(group_id, class_id);
+      //Build custom response
+//      ProcessDTO processDTO =
+//              GroupProjectDetailsDTO.builder()
+//                      .group_id(process)
+//                      .build();
+      logger.info("Return group details");
+      //Set up entity
+//      groupProjectDetailsDTO.getProjectID().setProcessSet(process);
+      return ResponseEntity.ok(
+              new ResponseObject("Successful", "Found group", process));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+              .body(new ResponseObject("Failed", "No found group", null));
     }
   }
 

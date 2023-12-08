@@ -1,5 +1,6 @@
 package com.example.ProTaskifyAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -29,4 +30,5 @@ public class Process {
     @ManyToOne
     @JoinColumn(name = "feature_id")
     private Feature feature;
+
 }

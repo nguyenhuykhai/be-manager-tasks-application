@@ -1,10 +1,9 @@
 package com.example.ProTaskifyAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -40,5 +39,6 @@ public class Task {
 
     @ManyToOne
     @JoinColumn(name = "feature_id")
+    @JsonBackReference
     private Feature feature;
 }

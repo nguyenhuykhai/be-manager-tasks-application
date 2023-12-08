@@ -172,7 +172,7 @@ public class ProTaskifyApiApplication {
                 .feedback("Well done!")
                 .priority("Top prior")
                 .status(true)
-                .task_name("Task 1")
+                .task_name("Task 2")
                 .build();
         tasks.add(task2);
         taskRepo.saveAll(tasks);

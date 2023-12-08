@@ -1,11 +1,11 @@
 package com.example.ProTaskifyAPI.ServiceImpl;
 
 import com.example.ProTaskifyAPI.DTO.GroupDTO;
-import com.example.ProTaskifyAPI.DTO.ProcessDTO;
 import com.example.ProTaskifyAPI.DTO.Response.GroupProjectDetailsDTO;
+import com.example.ProTaskifyAPI.DTO.Response.ProcessDetailsResponse;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.Models.Group;
-import com.example.ProTaskifyAPI.Models.Student;
+import com.example.ProTaskifyAPI.Models.Task;
 import com.example.ProTaskifyAPI.Repositories.*;
 import com.example.ProTaskifyAPI.Services.GroupService;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Service
@@ -30,6 +30,8 @@ public class GroupServiceImpl implements GroupService {
   private final ProjectRepo projectRepo;
 
   private final ProcessRepo processRepo;
+
+  private final FeatureRepo featureRepo;
 
   private final TaskRepo taskRepo;
   @Override
@@ -78,16 +80,13 @@ public class GroupServiceImpl implements GroupService {
   public ResponseEntity<ResponseObject> findProcessDetails(
           Integer group_id, Integer class_id) {
     try {
-      //Initialize variables
       var process = processRepo.findProcessDetails(group_id, class_id);
-      //Build custom response
-//      ProcessDTO processDTO =
-//              GroupProjectDetailsDTO.builder()
-//                      .group_id(process)
-//                      .build();
-      logger.info("Return group details");
-      //Set up entity
-//      groupProjectDetailsDTO.getProjectID().setProcessSet(process);
+
+      for (ProcessDetailsResponse element : process) {
+        var tasks = taskRepo.findTaskByFeature(element.getFeature());
+        element.getFeature().setTaskSet(new HashSet<>(tasks));
+      }
+      logger.info("Return process details");
       return ResponseEntity.ok(
               new ResponseObject("Successful", "Found group", process));
     } catch (Exception e) {

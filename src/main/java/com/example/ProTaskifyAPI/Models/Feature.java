@@ -1,5 +1,7 @@
 package com.example.ProTaskifyAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +31,7 @@ public class Feature {
     @OneToMany(mappedBy = "feature")
     private Set<Process> processSet = new HashSet<>();
 
-    @OneToMany(mappedBy = "feature")
+    @OneToMany(mappedBy = "feature", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private Set<Task> taskSet = new HashSet<>();
 }

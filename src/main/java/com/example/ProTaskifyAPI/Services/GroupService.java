@@ -10,6 +10,6 @@ public interface GroupService {
 
     ResponseEntity<ResponseObject> findGroupProjectDetails(Integer group_id, Integer class_id);
 
-    ResponseEntity<ResponseObject> findProcessDetails(Integer group_id, Integer class_id);
+
 //    ResponseEntity<ResponseObject> chooseTopic(String topic);
 }

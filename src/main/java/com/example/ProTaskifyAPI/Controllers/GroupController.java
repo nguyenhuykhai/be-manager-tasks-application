@@ -33,12 +33,6 @@ public class GroupController {
         return groupService.findGroupProjectDetails(groupId, classId);
     }
 
-    @GetMapping("/details/process")
-    public ResponseEntity<ResponseObject> processDetails(@RequestParam(name = "groupId") int groupId,
-                                                       @RequestParam(name = "classId") int classId) {
-        return groupService.findProcessDetails(groupId, classId);
-    }
-
 //    @PostMapping("/topic")
 //    public String chooseTopic(@RequestBody String topic){
 //        return groupService.chooseTopic();

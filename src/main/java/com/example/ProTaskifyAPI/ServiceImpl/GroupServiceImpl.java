@@ -76,25 +76,6 @@ public class GroupServiceImpl implements GroupService {
     }
   }
 
-  @Override
-  public ResponseEntity<ResponseObject> findProcessDetails(
-          Integer group_id, Integer class_id) {
-    try {
-      var process = processRepo.findProcessDetails(group_id, class_id);
-
-      for (ProcessDetailsResponse element : process) {
-        var tasks = taskRepo.findTaskByFeature(element.getFeature());
-        element.getFeature().setTaskSet(new HashSet<>(tasks));
-      }
-      logger.info("Return process details");
-      return ResponseEntity.ok(
-              new ResponseObject("Successful", "Found group", process));
-    } catch (Exception e) {
-      return ResponseEntity.status(HttpStatus.NOT_FOUND)
-              .body(new ResponseObject("Failed", "No found group", null));
-    }
-  }
-
   private boolean checkExistedGroup(GroupDTO g) {
     return groupRepo.findById(g.getId()).orElse(null) != null;
   }

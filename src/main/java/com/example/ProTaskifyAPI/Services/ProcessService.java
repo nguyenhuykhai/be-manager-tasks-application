@@ -5,4 +5,6 @@ import org.springframework.http.ResponseEntity;
 
 public interface ProcessService {
     ResponseEntity<ResponseObject> findProcessDetails(Integer group_id, Integer class_id);
+
+    ResponseEntity<ResponseObject> viewVotePage(int sprintId);
 }

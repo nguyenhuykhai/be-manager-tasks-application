@@ -1,6 +1,9 @@
 package com.example.ProTaskifyAPI.Models;
 
 import com.example.ProTaskifyAPI.enums.Role;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,31 +34,33 @@ public class Student implements UserDetails {
 
   @ManyToOne
   @JoinColumn(name = "class_id")
+  @JsonBackReference
   private Class classID;
 
   @ManyToOne
+  @JsonBackReference
   @JoinColumn(name = "group_id")
   private Group groupID;
 
   @Column(name = "score")
   private float score;
 
-  @Column(name = "link_facebook", length = 100)
+  @Column(name = "link_facebook", length = 200)
   private String link_facebook;
 
-  @Column(name = "email", length = 50)
+  @Column(name = "email", length = 200)
   private String email;
 
   @Column(name = "password", length = Integer.MAX_VALUE)
   private String password;
 
-  @Column(name = "github", length = 50)
+  @Column(name = "github", length = 200)
   private String github;
 
-  @Column(name = "skills", length = 50)
+  @Column(name = "skills", length = 200)
   private String skills;
 
-  @Column(name = "about", length = 100)
+  @Column(name = "about", length = 200)
   private String about;
 
   @Column(name = "picture")
@@ -72,15 +77,19 @@ public class Student implements UserDetails {
   private byte[] pending;
 
   @OneToMany(mappedBy = "student")
+  @JsonManagedReference
   private List<Tokens> tokens;
 
   @OneToMany(mappedBy = "student")
+  @JsonManagedReference
   private List<Star> starList;
 
   @OneToMany(mappedBy = "student")
+  @JsonManagedReference
   private List<StudentTask> studentTaskList;
 
   @Override
+  @JsonIgnore
   public Collection<? extends GrantedAuthority> getAuthorities() {
     return grantedAuthorities();
   }

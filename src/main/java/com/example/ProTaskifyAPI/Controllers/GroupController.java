@@ -30,8 +30,9 @@ public class GroupController {
     @GetMapping("/details")
     public ResponseEntity<ResponseObject> groupDetails(@RequestParam(name = "groupId") int groupId,
                                                       @RequestParam(name = "classId") int classId) {
-        return groupService.findGroupProjectDetails(groupId, classId);
+        return groupService.findGroupDetails(groupId, classId);
     }
+
 
 //    @PostMapping("/topic")
 //    public String chooseTopic(@RequestBody String topic){

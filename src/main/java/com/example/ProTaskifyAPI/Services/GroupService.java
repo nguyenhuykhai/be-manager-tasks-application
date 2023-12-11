@@ -8,8 +8,6 @@ public interface GroupService {
 
     ResponseEntity<ResponseObject> createGroup(GroupDTO g);
 
-    ResponseEntity<ResponseObject> findGroupProjectDetails(Integer group_id, Integer class_id);
-
-
+    ResponseEntity<ResponseObject> findGroupDetails(Integer group_id, Integer class_id);
 //    ResponseEntity<ResponseObject> chooseTopic(String topic);
 }

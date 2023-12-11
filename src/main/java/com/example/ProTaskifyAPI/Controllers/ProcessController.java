@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("api/v1/group")
+@RequestMapping("api/v1/process")
 public class ProcessController {
     private final ProcessServiceImpl processService;
 
@@ -19,5 +19,10 @@ public class ProcessController {
     public ResponseEntity<ResponseObject> processDetails(@RequestParam(name = "groupId") int groupId,
                                                          @RequestParam(name = "classId") int classId) {
         return processService.findProcessDetails(groupId, classId);
+    }
+
+    @GetMapping("/view/vote")
+    public ResponseEntity<ResponseObject> viewVotePage(@RequestParam(name = "sprintId") int sprintId) {
+        return processService.viewVotePage(sprintId);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.ProTaskifyAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -17,6 +18,7 @@ public class StudentTask {
     StudentTaskCompositeKey id;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "student_id")
     private Student student;
 

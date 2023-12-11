@@ -1,5 +1,6 @@
 package com.example.ProTaskifyAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +36,7 @@ public class Class {
     private Lecturer lecturerID;
 
     @OneToMany(mappedBy = "classID")
+    @JsonManagedReference
     private Set<Student> classStudents = new HashSet<>();
 
     @OneToMany(mappedBy = "classID")

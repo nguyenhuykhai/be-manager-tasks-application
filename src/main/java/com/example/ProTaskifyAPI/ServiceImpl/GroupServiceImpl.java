@@ -2,10 +2,8 @@ package com.example.ProTaskifyAPI.ServiceImpl;
 
 import com.example.ProTaskifyAPI.DTO.GroupDTO;
 import com.example.ProTaskifyAPI.DTO.Response.GroupProjectDetailsDTO;
-import com.example.ProTaskifyAPI.DTO.Response.ProcessDetailsResponse;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.Models.Group;
-import com.example.ProTaskifyAPI.Models.Task;
 import com.example.ProTaskifyAPI.Repositories.*;
 import com.example.ProTaskifyAPI.Services.GroupService;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +12,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
-import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -30,10 +25,8 @@ public class GroupServiceImpl implements GroupService {
   private final ProjectRepo projectRepo;
 
   private final ProcessRepo processRepo;
-
-  private final FeatureRepo featureRepo;
-
-  private final TaskRepo taskRepo;
+  
+  private final StudentRepo studentRepo;
   @Override
   public ResponseEntity<ResponseObject> createGroup(GroupDTO g) {
     if (checkExistedGroup(g)) {
@@ -46,13 +39,13 @@ public class GroupServiceImpl implements GroupService {
   }
 
   @Override
-  public ResponseEntity<ResponseObject> findGroupProjectDetails(
+  public ResponseEntity<ResponseObject> findGroupDetails(
           Integer group_id, Integer class_id) {
     try {
       //Initialize variables
       var group = groupRepo.findGroupProjectDetails(group_id, class_id).orElse(null);
-      var process = processRepo.findGroupProjectDetails(group_id, class_id);
       var project = projectRepo.findGroupProjectDetails(group_id, class_id).orElse(null);
+      var student = studentRepo.findGroupProjectDetails(group_id, class_id);
       //Build custom response
       GroupProjectDetailsDTO groupProjectDetailsDTO =
               GroupProjectDetailsDTO.builder()
@@ -60,14 +53,11 @@ public class GroupServiceImpl implements GroupService {
                       .classID(group.getClassID())
                       .groupStudents(group.getGroupStudents())
                       .projectID(project)
+                      .groupStudents(student)
                       .group_name(group.getGroup_name())
                       .score(group.getScore())
                       .build();
       logger.info("Return group details");
-      //Set up entity
-      groupProjectDetailsDTO.getProjectID().setProcessSet(process);
-
-
       return ResponseEntity.ok(
               new ResponseObject("Successful", "Found group", groupProjectDetailsDTO));
     } catch (Exception e) {

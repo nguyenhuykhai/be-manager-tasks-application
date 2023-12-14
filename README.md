@@ -8,10 +8,10 @@ FU_MANAGER_PROJECT (Back-end) là một ứng dụng web được thiết kế v
 
 1. **Spring boot compiler**
 
-   - Bất kì compiler nào chạy được spring boot đều có thể khởi động dự án, ví dụ : Intellij, Eclipse ,... . | Install Node.js version 18 or above. npm will be installed along with it.
+   - Bất kì compiler nào chạy được spring boot đều có thể khởi động dự án, ví dụ : Intellij, Eclipse ,...
 
 4. **Chạy Dự Án | Run the Project:**
-   - Khởi động compiler. ( Lưu ý chạy toàn bộ các dependencies trong file pom trước )
+   - Khởi động compiler. ( Lưu ý chạy toàn bộ các dependencies trong file pom.xml trước )
    - Truy cập ứng dụng tại `http://localhost:3000/` trong trình duyệt web của bạn.
 
 ---

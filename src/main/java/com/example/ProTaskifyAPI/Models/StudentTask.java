@@ -25,4 +25,6 @@ public class StudentTask {
     @ManyToOne
     @JoinColumn(name = "task_id")
     private Task task;
+
+
 }

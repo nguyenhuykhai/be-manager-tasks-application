@@ -1,11 +1,8 @@
 package com.example.ProTaskifyAPI.Services;
 
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
-import com.example.ProTaskifyAPI.DTO.UpdateLinkRequest;
+import com.example.ProTaskifyAPI.DTO.Resquest.UpdateLinkRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-
-import java.util.List;
 
 public interface StudentService {
     ResponseEntity<ResponseObject> updateLink(UpdateLinkRequest dto);
@@ -19,4 +16,6 @@ public interface StudentService {
     ResponseEntity<ResponseObject> inviteGroup(int groupID, int studentID);
 
     ResponseEntity<ResponseObject> acceptInvitation(Integer groupID, Integer studentID);
+
+    ResponseEntity<ResponseObject> getTotalTasksStatus(Integer ProjectID);
 }

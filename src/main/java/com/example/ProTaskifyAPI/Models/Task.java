@@ -22,8 +22,8 @@ public class Task {
     @Column(name = "task_name", length = 50)
     private String task_name;
 
-    @Column(name = "status")
-    private boolean status;
+    @Column(name = "status", length = 100)
+    private String status;
 
     @Column(name = "feedback", length = 100)
     private String feedback;

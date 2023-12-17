@@ -1,4 +1,4 @@
-package com.example.ProTaskifyAPI.DTO;
+package com.example.ProTaskifyAPI.DTO.Resquest;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

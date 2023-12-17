@@ -1,7 +1,6 @@
 package com.example.ProTaskifyAPI.Repositories;
 
-import com.example.ProTaskifyAPI.DTO.ListStudentResponse;
-import com.example.ProTaskifyAPI.Models.Process;
+import com.example.ProTaskifyAPI.DTO.Response.ListStudentResponse;
 import com.example.ProTaskifyAPI.Models.Student;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package com.example.ProTaskifyAPI.DTO;
+package com.example.ProTaskifyAPI.DTO.Response;
 
 public interface ListStudentResponse {
     int getStudent_id();

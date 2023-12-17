@@ -1,7 +1,7 @@
 package com.example.ProTaskifyAPI.Controllers;
 
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
-import com.example.ProTaskifyAPI.DTO.UpdateLinkRequest;
+import com.example.ProTaskifyAPI.DTO.Resquest.UpdateLinkRequest;
 import com.example.ProTaskifyAPI.ServiceImpl.StudentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -16,14 +16,21 @@ public class StudentController {
     private final StudentServiceImpl studentService;
     private final Logger logger = LoggerFactory.getLogger(StudentController.class);
 
-    @PostMapping("/updatelink")
-    public ResponseEntity<ResponseObject> updateLink(@RequestBody UpdateLinkRequest obj) {
-        return studentService.updateLink(obj);
+    @GetMapping("/tasks/status")
+    public ResponseEntity<ResponseObject> getStudents_Tasks_Status(
+            @RequestParam(name = "Project_id") Integer projectID
+    ) {
+        return studentService.getTotalTasksStatus(projectID);
     }
 
     @GetMapping("/get-all")
     public ResponseEntity<ResponseObject> getStudents() {
         return studentService.getAll();
+    }
+
+    @PostMapping("/updatelink")
+    public ResponseEntity<ResponseObject> updateLink(@RequestBody UpdateLinkRequest obj) {
+        return studentService.updateLink(obj);
     }
 
     @PutMapping("/invite-group")
@@ -41,4 +48,6 @@ public class StudentController {
     ) {
         return studentService.acceptInvitation(groupID, studentID);
     }
+
+
 }

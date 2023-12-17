@@ -62,7 +62,7 @@ public class ProcessServiceImpl implements ProcessService {
         String email = jwtService.extractEmail(token);
         try {
             var student = studentRepo.findByEmail(email).orElse(null);
-            var stars = starRepo.findStarsBySprintAndStudentNot(sprintRepo.findById(sprintId).orElse(null), student.getStudent_id());
+            var stars = starRepo.findStarsBySprintAndStudentNot(sprintRepo.findById(sprintId).orElse(null), student);
             return ResponseEntity.ok(
                     new ResponseObject("Successful", "Found group", stars));
         } catch (Exception e) {

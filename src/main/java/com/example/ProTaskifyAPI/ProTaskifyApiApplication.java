@@ -5,9 +5,11 @@ import com.example.ProTaskifyAPI.Repositories.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @RequiredArgsConstructor
+@EnableScheduling
 public class ProTaskifyApiApplication {
 //  private final StudentRepo studentRepo;
 //  private final StudentServiceImpl studentService;

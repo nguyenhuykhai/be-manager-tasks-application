@@ -1,13 +1,11 @@
 package com.example.ProTaskifyAPI.Controllers;
 
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
+import com.example.ProTaskifyAPI.DTO.Resquest.VotePointRequest;
 import com.example.ProTaskifyAPI.ServiceImpl.ProcessServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,5 +22,10 @@ public class ProcessController {
     @GetMapping("/view/vote")
     public ResponseEntity<ResponseObject> viewVotePage(@RequestParam(name = "sprintId") int sprintId) {
         return processService.viewVotePage(sprintId);
+    }
+
+    @PutMapping("/vote")
+    public ResponseEntity<ResponseObject> voteStudentStarPoints(@RequestBody VotePointRequest votePointRequest) {
+        return processService.voteStudentStarPoints(votePointRequest);
     }
 }

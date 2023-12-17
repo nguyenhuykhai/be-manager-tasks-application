@@ -7,8 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface StarRepo extends JpaRepository<Star, Integer> {
     List<Star> findStarsBySprintAndStudentNot(Sprint sprint, Student id);
+
+    Optional<Star> findStarBySprintAndStudent(Sprint sprint, Student student);
 }

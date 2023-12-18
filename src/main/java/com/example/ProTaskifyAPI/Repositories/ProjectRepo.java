@@ -29,5 +29,4 @@ public interface ProjectRepo extends JpaRepository<Project, Integer> {
 """)
     List<Object> testFindProject(@Param(value = "group_id") Integer group_id, @Param(value = "class_id") Integer class_id);
 
-
 }

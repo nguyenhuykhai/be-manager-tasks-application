@@ -327,7 +327,7 @@ Hỗ Trợ Đa Trình Duyệt: Đảm bảo hoạt động trơn tru trên các 
 
 ---
 
-## Máy chủ FU_MANAGER_PROJECT | Server FU_MANAGER_PROJECT | BACKEND
+## Giao diện FU_MANAGER_PROJECT | FRONTEND
 
-- [Đang trong quá trình xây dựng](https://github.com/RankillerDY/ProTaskify-API)
+- [FU_MANAGER_PROJECT (Front-end)](https://github.com/nguyenhuykhai/manager-tasks-application)
 

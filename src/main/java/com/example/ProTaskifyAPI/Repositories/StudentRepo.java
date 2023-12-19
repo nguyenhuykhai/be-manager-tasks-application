@@ -27,7 +27,7 @@ public interface StudentRepo extends JpaRepository<Student, Integer> {
     select s
     from Group g
     left join Student s on s.groupID.group_id = g.group_id
-    where g.group_id = :group_id and g.classID.class_id = :class_id
+    where g.group_id = :group_id and g.classID.class_id = :class_id and g.status = true
 """)
   Set<Student> findGroupProjectDetails(
       @Param(value = "group_id") Integer group_id, @Param(value = "class_id") Integer class_id);

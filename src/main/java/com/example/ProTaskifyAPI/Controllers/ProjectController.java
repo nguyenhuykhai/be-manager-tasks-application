@@ -20,4 +20,9 @@ public class ProjectController {
                                                        @RequestParam(name = "classId") int classId) {
         return projectService.findGroupProjectDetails(groupId, classId);
     }
+
+    @GetMapping("/non-chose/project")
+    public ResponseEntity<ResponseObject> getAll_NonChoose_Project() {
+        return projectService.getAll_NonChoose_Project();
+    }
 }

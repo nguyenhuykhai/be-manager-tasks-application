@@ -107,6 +107,22 @@ public class GroupServiceImpl implements GroupService {
     }
   }
 
+  @Override
+  public ResponseEntity<ResponseObject> chooseTopic(Integer topicId, Integer groupId) {
+    try {
+      //Initialize variables
+      var group = groupRepo.findById(groupId).orElse(null);
+      group.setProjectID(projectRepo.findById(topicId).orElse(null));
+
+      logger.info("Choose topic");
+      return ResponseEntity.ok(
+              new ResponseObject("Successful", "Found group", groupRepo.save(group)));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+              .body(new ResponseObject("Failed", "No found group", null));
+    }
+  }
+
   private boolean checkExistedGroup(GroupDTO g) {
     return groupRepo.findById(g.getId()).orElse(null) != null;
   }

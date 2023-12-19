@@ -45,8 +45,10 @@ public class GroupController {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseObject("Failed", "Group is already existed", null));
     }
 
-//    @PostMapping("/topic")
-//    public String chooseTopic(@RequestBody String topic){
-//        return groupService.chooseTopic();
-//    }
+    @PutMapping("/topic")
+    public ResponseEntity<ResponseObject> chooseTopic(
+            @RequestParam(name = "topicId") Integer topicId,
+            @RequestParam(name = "groupId") int groupId){
+        return groupService.chooseTopic(topicId, groupId);
+    }
 }

@@ -13,5 +13,7 @@ public interface GroupService {
     ResponseEntity<ResponseObject> findStudentsTasks(int groupId, int classId);
 
     ResponseEntity<ResponseObject> findStudentTask(int groupId, int classId);
+
+    ResponseEntity<ResponseObject> chooseTopic(Integer topicId, Integer groupId);
 //    ResponseEntity<ResponseObject> chooseTopic(String topic);
 }

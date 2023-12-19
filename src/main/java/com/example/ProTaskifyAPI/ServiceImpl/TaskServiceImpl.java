@@ -19,7 +19,7 @@ public class TaskServiceImpl implements TaskService {
     private final FeatureRepo featureRepo;
 
     @Override
-    @Scheduled(cron = "0 0 0 * * ?")
+//    @Scheduled(cron = "0 0 0 * * ?")
     @Transactional
     public void checkMissDeadline() {
         var listTasks = taskRepo.findAllMissDeadlineTasks();

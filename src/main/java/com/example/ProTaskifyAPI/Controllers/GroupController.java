@@ -17,6 +17,24 @@ public class GroupController {
 
     private final StudentService studentService;
 
+    @GetMapping("/details")
+    public ResponseEntity<ResponseObject> groupDetails(@RequestParam(name = "groupId") int groupId,
+                                                      @RequestParam(name = "classId") int classId) {
+        return groupService.findGroupDetails(groupId, classId);
+    }
+
+    @GetMapping("/team/tasks")
+    public ResponseEntity<ResponseObject> groupTasks(@RequestParam(name = "groupId") int groupId,
+                                                       @RequestParam(name = "classId") int classId) {
+        return groupService.findStudentsTasks(groupId, classId);
+    }
+
+    @GetMapping("/individual/tasks")
+    public ResponseEntity<ResponseObject> studentTask(@RequestParam(name = "groupId") int groupId,
+                                                     @RequestParam(name = "classId") int classId) {
+        return groupService.findStudentTask(groupId, classId);
+    }
+
     @PostMapping("/create/{studentId}")
     public ResponseEntity<ResponseObject> createGroup(@RequestBody GroupDTO group,
                                                       @PathVariable("studentId") int studentId){
@@ -26,13 +44,6 @@ public class GroupController {
         }
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ResponseObject("Failed", "Group is already existed", null));
     }
-
-    @GetMapping("/details")
-    public ResponseEntity<ResponseObject> groupDetails(@RequestParam(name = "groupId") int groupId,
-                                                      @RequestParam(name = "classId") int classId) {
-        return groupService.findGroupDetails(groupId, classId);
-    }
-
 
 //    @PostMapping("/topic")
 //    public String chooseTopic(@RequestBody String topic){

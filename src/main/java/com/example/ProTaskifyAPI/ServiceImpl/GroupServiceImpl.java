@@ -12,6 +12,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -25,6 +29,8 @@ public class GroupServiceImpl implements GroupService {
   private final ProjectRepo projectRepo;
 
   private final ProcessRepo processRepo;
+
+  private final JwtService jwtService;
   
   private final StudentRepo studentRepo;
   @Override
@@ -60,6 +66,41 @@ public class GroupServiceImpl implements GroupService {
       logger.info("Return group details");
       return ResponseEntity.ok(
               new ResponseObject("Successful", "Found group", groupProjectDetailsDTO));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+              .body(new ResponseObject("Failed", "No found group", null));
+    }
+  }
+
+  @Override
+  public ResponseEntity<ResponseObject> findStudentsTasks(int group_id, int class_id) {
+    try {
+      //Initialize variables
+      var student = studentRepo.findGroupProjectDetails(group_id, class_id);
+      logger.info("Return group students tasks");
+      return ResponseEntity.ok(
+              new ResponseObject("Successful", "Found group", student));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+              .body(new ResponseObject("Failed", "No found group", null));
+    }
+  }
+
+  @Override
+  public ResponseEntity<ResponseObject> findStudentTask(int group_id, int class_id) {
+    try {
+      //Initialize variables
+      String token =
+              ((ServletRequestAttributes)
+                      Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
+                      .getRequest()
+                      .getHeader("Authorization")
+                      .substring(7);
+      String email = jwtService.extractEmail(token);
+      var student = studentRepo.findIndividualStudent(group_id, class_id, email);
+      logger.info("Return group students tasks");
+      return ResponseEntity.ok(
+              new ResponseObject("Successful", "Found group", student));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
               .body(new ResponseObject("Failed", "No found group", null));

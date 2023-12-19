@@ -28,8 +28,11 @@ public class Project {
     @JoinColumn(name = "lecturer_id")
     private Lecturer lecturerID;
 
-    @Column(name = "status")
-    private boolean status;
+    @Column(name = "deleted")
+    private boolean deleted;
+
+    @Column(name = "status", length = 100)
+    private String status;
 
     @Column(name = "problems", nullable = false)
     @Lob

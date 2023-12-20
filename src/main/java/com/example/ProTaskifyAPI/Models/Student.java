@@ -127,7 +127,7 @@ public class Student implements UserDetails {
   }
 
   public List<SimpleGrantedAuthority> grantedAuthorities() {
-    System.out.println("I'm Running");
+    System.out.println("GrantedAuthorities function in Student, I'm Running");
     List<SimpleGrantedAuthority> authorities = new ArrayList<>();
     if(this.is_leader()) {
       Role.LEADER.getPermission().forEach(permission -> authorities.add(new SimpleGrantedAuthority(permission.getPermission())));

@@ -2,15 +2,13 @@ package com.example.ProTaskifyAPI.Repositories;
 
 import com.example.ProTaskifyAPI.DTO.ProcessDTO;
 import com.example.ProTaskifyAPI.DTO.Response.ProcessDetailsResponse;
-import com.example.ProTaskifyAPI.Models.Feature;
-import com.example.ProTaskifyAPI.Models.Process;
-import com.example.ProTaskifyAPI.Models.ProcessCompositeKey;
+import com.example.ProTaskifyAPI.Models.*;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import com.example.ProTaskifyAPI.Models.Project;
+import com.example.ProTaskifyAPI.Models.Process;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -40,4 +38,6 @@ public interface ProcessRepo extends JpaRepository<Process, ProcessCompositeKey>
     List<Process> findProcessByFeature(Feature feature);
 
     List<Process> findProcessesByProject(Project project);
+
+    Optional<Process> findProcessByProjectAndSprint(Project project, Sprint sprint);
 }

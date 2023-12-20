@@ -1,5 +1,6 @@
 package com.example.ProTaskifyAPI.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,10 +32,12 @@ public class Group {
     private boolean status;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "project_id")
     private Project projectID;
 
     @ManyToOne
+    @JsonBackReference
     @JoinColumn(name = "class_id")
     private Class classID;
 
@@ -43,5 +46,6 @@ public class Group {
     private Set<Student> groupStudents = new HashSet<>();
 
     @OneToMany(mappedBy = "group")
+    @JsonManagedReference
     private Set<Messages> messagesSet = new HashSet<>();
 }

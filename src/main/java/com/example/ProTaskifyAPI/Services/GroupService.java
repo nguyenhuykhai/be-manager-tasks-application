@@ -2,11 +2,12 @@ package com.example.ProTaskifyAPI.Services;
 
 import com.example.ProTaskifyAPI.DTO.GroupDTO;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
+import com.example.ProTaskifyAPI.DTO.Resquest.CreateGroupRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface GroupService {
 
-    ResponseEntity<ResponseObject> createGroup(GroupDTO g);
+    ResponseEntity<ResponseObject> createGroup(CreateGroupRequest g);
 
     ResponseEntity<ResponseObject> findGroupDetails(Integer group_id, Integer class_id);
 

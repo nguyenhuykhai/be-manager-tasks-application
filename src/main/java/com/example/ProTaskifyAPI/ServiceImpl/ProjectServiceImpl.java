@@ -67,7 +67,7 @@ public class ProjectServiceImpl implements ProjectService {
 
             logger.info("Get non-choose all projects");
             return ResponseEntity.ok(
-                    new ResponseObject("Successful", "Found group", projects));
+                    new ResponseObject("Successful", "Found projects", projects));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ResponseObject("Failed", "No found group", null));

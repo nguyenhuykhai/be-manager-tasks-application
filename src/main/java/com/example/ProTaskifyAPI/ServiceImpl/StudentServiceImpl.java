@@ -122,7 +122,7 @@ public class StudentServiceImpl implements StudentService {
       }
       if (student.getGroupID() != null) {
         return ResponseEntity.status(HttpStatus.CREATED)
-            .body(new ResponseObject("Failed", "Student already in class", null));
+            .body(new ResponseObject("Failed", "Student already in group", null));
       }
 
       if (invites.contains(groupID)) {

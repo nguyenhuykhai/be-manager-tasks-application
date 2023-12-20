@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface GroupRepo extends JpaRepository<Group,Integer> {
   @Query(value = """
-    select g from Group g where g.group_id = :group_id and g.classID.class_id = :class_id
+    select g from Group g where g.group_id = :group_id and g.classID.class_id = :class_id and g.status = true
 """)
   Optional<Group> findGroupProjectDetails(@Param(value = "group_id") Integer group_id, @Param(value = "class_id") Integer class_id);
 }

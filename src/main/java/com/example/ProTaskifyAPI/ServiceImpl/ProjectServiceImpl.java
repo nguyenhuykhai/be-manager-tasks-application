@@ -58,4 +58,19 @@ public class ProjectServiceImpl implements ProjectService {
                     .body(new ResponseObject("Failed", "No found group", null));
         }
     }
+
+    @Override
+    public ResponseEntity<ResponseObject> getAll_NonChoose_Project() {
+        try {
+            //Initialize variables
+            var projects = projectRepo.getAll_NonChooseProjects();
+
+            logger.info("Get non-choose all projects");
+            return ResponseEntity.ok(
+                    new ResponseObject("Successful", "Found group", projects));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ResponseObject("Failed", "No found group", null));
+        }
+    }
 }

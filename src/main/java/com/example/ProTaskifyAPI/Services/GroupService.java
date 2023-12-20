@@ -9,5 +9,11 @@ public interface GroupService {
     ResponseEntity<ResponseObject> createGroup(GroupDTO g);
 
     ResponseEntity<ResponseObject> findGroupDetails(Integer group_id, Integer class_id);
+
+    ResponseEntity<ResponseObject> findStudentsTasks(int groupId, int classId);
+
+    ResponseEntity<ResponseObject> findStudentTask(int groupId, int classId);
+
+    ResponseEntity<ResponseObject> chooseTopic(Integer topicId, Integer groupId);
 //    ResponseEntity<ResponseObject> chooseTopic(String topic);
 }

@@ -52,6 +52,7 @@ public class Student implements UserDetails {
   private String email;
 
   @Column(name = "password", length = Integer.MAX_VALUE)
+  @JsonIgnore
   private String password;
 
   @Column(name = "github", length = 200)
@@ -78,6 +79,7 @@ public class Student implements UserDetails {
 
   @OneToMany(mappedBy = "student")
   @JsonManagedReference
+  @JsonIgnore
   private List<Tokens> tokens;
 
   @OneToMany(mappedBy = "student")

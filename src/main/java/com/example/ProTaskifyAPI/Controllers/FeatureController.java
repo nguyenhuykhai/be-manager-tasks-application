@@ -1,6 +1,10 @@
 package com.example.ProTaskifyAPI.Controllers;
 
-import org.springframework.stereotype.Controller;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("api/v1/feature")
 public class FeatureController {}

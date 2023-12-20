@@ -14,11 +14,11 @@ import java.io.Serializable;
 @Data
 public class ProcessCompositeKey implements Serializable {
     @Column(name = "project")
-    int project;
+    Integer project;
 
     @Column(name = "sprint")
-    int sprint;
+    Integer sprint;
 
     @Column(name = "feature")
-    int feature;
+    Integer feature;
 }

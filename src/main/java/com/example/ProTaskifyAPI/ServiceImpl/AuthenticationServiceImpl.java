@@ -1,6 +1,7 @@
 package com.example.ProTaskifyAPI.ServiceImpl;
 
 import com.example.ProTaskifyAPI.DTO.Response.AuthenticationResponse;
+import com.example.ProTaskifyAPI.DTO.Response.LoginResponseObject;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.Resquest.AuthenticationRequest;
 import com.example.ProTaskifyAPI.DTO.StudentDTO;
@@ -58,7 +59,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public ResponseEntity<ResponseObject> login(AuthenticationRequest request) {
+    public ResponseEntity<LoginResponseObject> login(AuthenticationRequest request) {
         try {
             var authenticatedUser = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
@@ -66,9 +67,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             var jwtToken = jwtService.generateToken(user);
             revokeAllStudentToken(user);
             SavedUserToken(jwtToken, user);
-            return ResponseEntity.ok().body(new ResponseObject("Successful", "Jwt token: " + jwtToken, authenticatedUser));
+            return ResponseEntity.ok().body(new LoginResponseObject("Successful", "Jwt token: " + jwtToken, authenticatedUser, user));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("Failed", "Login failed", null));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new LoginResponseObject("Failed", "Login failed", null, null));
 
         }
 

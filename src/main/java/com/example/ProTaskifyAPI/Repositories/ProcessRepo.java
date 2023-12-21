@@ -39,5 +39,5 @@ public interface ProcessRepo extends JpaRepository<Process, ProcessCompositeKey>
 
     List<Process> findProcessesByProject(Project project);
 
-    Optional<Process> findProcessByProjectAndSprint(Project project, Sprint sprint);
+    Optional<Process> findProcessByProjectAndSprintAndFeature(Project project, Sprint sprint, Feature feature);
 }

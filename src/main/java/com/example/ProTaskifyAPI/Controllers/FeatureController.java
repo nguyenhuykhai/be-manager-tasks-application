@@ -14,10 +14,18 @@ public class FeatureController {
     private final FeatureService featureService;
     
     @PostMapping("/create")
-    ResponseEntity<ResponseObject> createSprint(
+    ResponseEntity<ResponseObject> createFeature(
             @RequestParam(value = "projectId") Integer projectId,
             @RequestParam(value = "sprintId") Integer sprintId,
             @RequestBody CreateFeatureRequest createFeatureRequest) {
         return featureService.createFeature(sprintId, projectId, createFeatureRequest);
+    }
+
+    @DeleteMapping("/delete")
+    ResponseEntity<ResponseObject> deleteFeature(
+            @RequestParam(value = "featureId") Integer featureId,
+            @RequestParam(value = "projectId") Integer projectId,
+            @RequestParam(value = "sprintId") Integer sprintId) {
+        return featureService.deleteFeature(featureId, projectId, sprintId);
     }
 }

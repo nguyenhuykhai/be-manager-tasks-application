@@ -7,4 +7,7 @@ import org.springframework.http.ResponseEntity;
 
 public interface FeatureService {
     ResponseEntity<ResponseObject> createFeature(Integer sprintId, Integer projectId, CreateFeatureRequest createRequest);
+
+    ResponseEntity<ResponseObject> deleteFeature(Integer featureId, Integer projectId, Integer sprintId);
+
 }

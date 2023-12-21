@@ -19,4 +19,10 @@ public class SprintController {
             @RequestBody CreateSprintRequest sprintRequest) {
         return sprintService.createSprint(projectId, sprintRequest);
     }
+
+    @DeleteMapping("/delete")
+    ResponseEntity<ResponseObject> deleteSprint(
+            @RequestParam(value = "sprintId") Integer sprintId) {
+        return sprintService.deleteSprint(sprintId);
+    }
 }

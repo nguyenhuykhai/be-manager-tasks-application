@@ -6,4 +6,6 @@ import org.springframework.http.ResponseEntity;
 
 public interface SprintService {
     ResponseEntity<ResponseObject> createSprint(Integer projectId, CreateSprintRequest sprintRequest);
+
+    ResponseEntity<ResponseObject> deleteSprint(Integer sprintId);
 }

@@ -20,7 +20,7 @@ public interface ProcessRepo extends JpaRepository<Process, ProcessCompositeKey>
     select pro from Group g 
     left join Project p on p.project_id = g.projectID.project_id
     left join Process pro on pro.project.project_id = p.project_id
-    where g.group_id = :group_id and g.classID.class_id = :class_id and g.status = true
+    where g.group_id = :group_id and g.classID.class_id = :class_id and g.status = true and p.deleted = false
 """)
     Set<Process> findGroupProjectDetails(@Param(value = "group_id") Integer group_id, @Param(value = "class_id") Integer class_id);
 
@@ -30,8 +30,7 @@ public interface ProcessRepo extends JpaRepository<Process, ProcessCompositeKey>
     left join Project p on p.project_id = g.projectID.project_id
     left join Process pro on pro.project.project_id = p.project_id
     left join Feature f on f.feature_id = pro.feature.feature_id
-    left join Task t on t.feature.feature_id = f.feature_id
-    where g.group_id = :group_id and g.classID.class_id = :class_id and g.status = true
+    where g.group_id = :group_id and g.classID.class_id = :class_id and g.status = true and p.deleted = false
 """)
     Set<ProcessDetailsResponse> findProcessDetails(@Param(value = "group_id") Integer group_id, @Param(value = "class_id") Integer class_id);
 

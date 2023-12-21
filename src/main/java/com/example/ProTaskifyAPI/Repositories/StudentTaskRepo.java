@@ -16,7 +16,7 @@ public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskC
     left join Feature f on f.feature_id = t.feature.feature_id
     left join Process p on p.feature.feature_id = f.feature_id
     left join Sprint s on s.sprint_id = p.sprint.sprint_id
-    where t.status = "Finished" and st.student.student_id = :student_id and s.sprint_id = :sprint_id and s.deleted = false
+    where t.status = "Finished" and st.student.student_id = :student_id and s.sprint_id = :sprint_id and s.deleted = false and t.deleted = false
     group by t.task_id
 """)
   Integer countStudentTaskPerSprint_Finished(@Param(value = "student_id") Integer student_id, @Param(value = "sprint_id") Integer sprint_id);
@@ -28,7 +28,7 @@ public interface StudentTaskRepo extends JpaRepository<StudentTask, StudentTaskC
       left join Feature f on f.feature_id = t.feature.feature_id
       left join Process p on p.feature.feature_id = f.feature_id
       left join Project pro on pro.project_id = p.project.project_id
-      where t.status = :status and st.student.student_id = :student_id and pro.project_id = :project_id and pro.deleted = false
+      where t.status = :status and st.student.student_id = :student_id and pro.project_id = :project_id and pro.deleted = false and t.deleted = false
       group by t.task_id
   """)
   Integer countStudentTaskInProject(@Param(value = "status") String status, @Param(value = "student_id") Integer student_id, @Param(value = "project_id") Integer project_id);

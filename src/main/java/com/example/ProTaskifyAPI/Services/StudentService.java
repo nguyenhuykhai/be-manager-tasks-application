@@ -18,4 +18,6 @@ public interface StudentService {
     ResponseEntity<ResponseObject> acceptInvitation(Integer groupID, Integer studentID);
 
     ResponseEntity<ResponseObject> getTotalTasksStatus(Integer ProjectID);
+
+    ResponseEntity<ResponseObject> demandTask(Integer taskId, Integer studentId);
 }

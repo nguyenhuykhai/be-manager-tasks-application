@@ -77,7 +77,7 @@ public class Student implements UserDetails {
   @Column(name = "pending")
   private byte[] pending;
 
-  @OneToMany(mappedBy = "student")
+  @OneToMany(mappedBy = "student", fetch = FetchType.LAZY)
   @JsonManagedReference
   @JsonIgnore
   private List<Tokens> tokens;

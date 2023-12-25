@@ -2,9 +2,8 @@ package com.example.ProTaskifyAPI.ServiceImpl;
 
 import com.example.ProTaskifyAPI.DTO.Response.AuthenticationResponse;
 import com.example.ProTaskifyAPI.DTO.Response.LoginResponseObject;
-import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.Resquest.AuthenticationRequest;
-import com.example.ProTaskifyAPI.DTO.StudentDTO;
+import com.example.ProTaskifyAPI.DTO.StudentDTOV1;
 import com.example.ProTaskifyAPI.Models.Student;
 import com.example.ProTaskifyAPI.Models.Tokens;
 import com.example.ProTaskifyAPI.Repositories.StudentRepo;
@@ -36,7 +35,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final TokensRepo tokensRepo;
 
     @Override
-    public ResponseEntity<AuthenticationResponse> register(StudentDTO dto) {
+    public ResponseEntity<AuthenticationResponse> register(StudentDTOV1 dto) {
         try {
             Student stu = Student.builder()
                     .student_name(dto.getName())

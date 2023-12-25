@@ -1,5 +1,6 @@
 package com.example.ProTaskifyAPI.DTO.Response;
 
+import com.example.ProTaskifyAPI.DTO.StudentDTOV2;
 import com.example.ProTaskifyAPI.Models.Class;
 import com.example.ProTaskifyAPI.Models.Process;
 import com.example.ProTaskifyAPI.Models.Project;
@@ -26,5 +27,5 @@ public class GroupProjectDetailsDTO {
 
     private Class classID;
 
-    private Set<Student> groupStudents;
+    private Set<StudentDTOV2> groupStudents;
 }

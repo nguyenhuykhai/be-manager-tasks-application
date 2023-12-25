@@ -1,6 +1,9 @@
 package com.example.ProTaskifyAPI.DTO.Response;
 
-public interface ListStudentResponse {
+import com.example.ProTaskifyAPI.Models.Class;
+import com.example.ProTaskifyAPI.Models.Group;
+
+public interface ListStudentResponseV2 {
     int getStudent_id();
 
     String getStudent_name();
@@ -22,4 +25,8 @@ public interface ListStudentResponse {
     String getStatus();
 
     boolean isIs_leader();
+
+    Class getClass_id();
+
+    Group getGroup_id();
 }

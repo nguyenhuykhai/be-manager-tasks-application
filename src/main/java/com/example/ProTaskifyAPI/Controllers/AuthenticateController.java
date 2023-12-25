@@ -2,9 +2,8 @@ package com.example.ProTaskifyAPI.Controllers;
 
 import com.example.ProTaskifyAPI.DTO.Response.AuthenticationResponse;
 import com.example.ProTaskifyAPI.DTO.Response.LoginResponseObject;
-import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.Resquest.AuthenticationRequest;
-import com.example.ProTaskifyAPI.DTO.StudentDTO;
+import com.example.ProTaskifyAPI.DTO.StudentDTOV1;
 import com.example.ProTaskifyAPI.ServiceImpl.AuthenticationServiceImpl;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,7 +27,7 @@ public class AuthenticateController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-            @RequestBody StudentDTO request
+            @RequestBody StudentDTOV1 request
     ) {
         logger.info("The request information" + request);
         return services.register(request);

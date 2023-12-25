@@ -175,7 +175,7 @@ public class StudentServiceImpl implements StudentService {
       TotalTasksResponse totalTasksResponse =
           TotalTasksResponse.builder()
               .total_finished_tasks(total_finished_tasks)
-              .total_tasks(total_tasks)
+              .total_tasks_pending(total_tasks)
               .total_late_tasks(total_late_tasks)
               .build();
       return ResponseEntity.ok(new ResponseObject("Successful", "", totalTasksResponse));

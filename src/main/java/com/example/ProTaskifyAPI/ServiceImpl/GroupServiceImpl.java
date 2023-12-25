@@ -1,12 +1,13 @@
 package com.example.ProTaskifyAPI.ServiceImpl;
 
-import com.example.ProTaskifyAPI.DTO.GroupDTO;
 import com.example.ProTaskifyAPI.DTO.Response.GroupProjectDetailsDTO;
+import com.example.ProTaskifyAPI.DTO.Response.TotalTasksResponse;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.Resquest.CreateGroupRequest;
 import com.example.ProTaskifyAPI.Models.Group;
 import com.example.ProTaskifyAPI.Repositories.*;
 import com.example.ProTaskifyAPI.Services.GroupService;
+import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,8 +16,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-
-import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -32,8 +31,9 @@ public class GroupServiceImpl implements GroupService {
   private final ProcessRepo processRepo;
 
   private final JwtService jwtService;
-  
+
   private final StudentRepo studentRepo;
+
   @Override
   public ResponseEntity<ResponseObject> createGroup(CreateGroupRequest g) {
     if (false) {
@@ -46,87 +46,116 @@ public class GroupServiceImpl implements GroupService {
   }
 
   @Override
-  public ResponseEntity<ResponseObject> findGroupDetails(
-          Integer group_id, Integer class_id) {
+  public ResponseEntity<ResponseObject> findGroupDetails(Integer group_id, Integer class_id) {
     try {
-      //Initialize variables
+      // Initialize variables
       var group = groupRepo.findGroupProjectDetails(group_id, class_id).orElse(null);
       var project = projectRepo.findGroupProjectDetails(group_id, class_id).orElse(null);
       var student = studentRepo.findGroupProjectDetails(group_id, class_id);
-      //Build custom response
+      // Build custom response
       GroupProjectDetailsDTO groupProjectDetailsDTO =
-              GroupProjectDetailsDTO.builder()
-                      .group_id(group.getGroup_id())
-                      .classID(group.getClassID())
-                      .groupStudents(group.getGroupStudents())
-                      .projectID(project)
-                      .groupStudents(student)
-                      .group_name(group.getGroup_name())
-                      .score(group.getScore())
-                      .build();
+          GroupProjectDetailsDTO.builder()
+              .group_id(group.getGroup_id())
+              .classID(group.getClassID())
+              .groupStudents(group.getGroupStudents())
+              .projectID(project)
+              .groupStudents(student)
+              .group_name(group.getGroup_name())
+              .score(group.getScore())
+              .build();
       logger.info("Return group details");
       return ResponseEntity.ok(
-              new ResponseObject("Successful", "Found group", groupProjectDetailsDTO));
+          new ResponseObject("Successful", "Found group", groupProjectDetailsDTO));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-              .body(new ResponseObject("Failed", "No found group", null));
+          .body(new ResponseObject("Failed", "No found group", null));
     }
   }
 
   @Override
   public ResponseEntity<ResponseObject> findStudentsTasks(int group_id, int class_id) {
     try {
-      //Initialize variables
+      // Initialize variables
       var student = studentRepo.findGroupProjectDetails(group_id, class_id);
       logger.info("Return group students tasks");
-      return ResponseEntity.ok(
-              new ResponseObject("Successful", "Found group", student));
+      return ResponseEntity.ok(new ResponseObject("Successful", "Found group", student));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-              .body(new ResponseObject("Failed", "No found group", null));
+          .body(new ResponseObject("Failed", "No found group", null));
     }
   }
 
   @Override
   public ResponseEntity<ResponseObject> findStudentTask(int group_id, int class_id) {
     try {
-      //Initialize variables
+      // Initialize variables
       String token =
-              ((ServletRequestAttributes)
-                      Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
-                      .getRequest()
-                      .getHeader("Authorization")
-                      .substring(7);
+          ((ServletRequestAttributes)
+                  Objects.requireNonNull(RequestContextHolder.getRequestAttributes()))
+              .getRequest()
+              .getHeader("Authorization")
+              .substring(7);
       String email = jwtService.extractEmail(token);
       var student = studentRepo.findIndividualStudent(group_id, class_id, email);
       logger.info("Return group students tasks");
-      return ResponseEntity.ok(
-              new ResponseObject("Successful", "Found group", student));
+      return ResponseEntity.ok(new ResponseObject("Successful", "Found group", student));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-              .body(new ResponseObject("Failed", "No found group", null));
+          .body(new ResponseObject("Failed", "No found group", null));
     }
   }
 
   @Override
   public ResponseEntity<ResponseObject> chooseTopic(Integer topicId, Integer groupId) {
     try {
-      //Initialize variables
+      // Initialize variables
       var group = groupRepo.findById(groupId).orElse(null);
-      group.setProjectID(projectRepo.findById(topicId).orElse(null));
+      var existedGroup_HaveProject = groupRepo.findExistedGroupContainProject(topicId).orElse(null);
+
+      if (existedGroup_HaveProject == null && group != null) {
+        group.setProjectID(projectRepo.findById(topicId).orElse(null));
+      }
 
       logger.info("Choose topic");
       return ResponseEntity.ok(
-              new ResponseObject("Successful", "Found group", groupRepo.save(group)));
+          new ResponseObject("Successful", "Found group", groupRepo.save(group)));
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
-              .body(new ResponseObject("Failed", "No found group", null));
+          .body(new ResponseObject("Failed", "No found group", null));
     }
   }
 
-//  private boolean checkExistedGroup(CreateGroupRequest g) {
-//    return groupRepo.findById(g.getId()).orElse(null) != null;
-//  }
+  @Override
+  public ResponseEntity<ResponseObject> getTotalTasksGroupStatus(
+      Integer projectID, Integer groupId) {
+    try {
+      var group = groupRepo.findById(groupId).orElse(null);
+      if (group == null) {
+        throw new Exception("There are no group");
+      }
+      Integer total_tasks =
+          groupRepo.countGroupTaskInProject("Pending", group.getGroup_id(), projectID);
+      Integer total_finished_tasks =
+          groupRepo.countGroupTaskInProject("Finished", group.getGroup_id(), projectID);
+      Integer total_late_tasks =
+          groupRepo.countGroupTaskInProject("Miss Deadline", group.getGroup_id(), projectID);
+
+      TotalTasksResponse totalTasksResponse =
+          TotalTasksResponse.builder()
+              .total_finished_tasks(total_finished_tasks)
+              .total_tasks_pending(total_tasks)
+              .total_late_tasks(total_late_tasks)
+              .build();
+      return ResponseEntity.ok(new ResponseObject("Successful", "", totalTasksResponse));
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.NOT_FOUND)
+          .body(new ResponseObject("Failed", "Not found student", e.getMessage()));
+    }
+  }
+
+  //  private boolean checkExistedGroup(CreateGroupRequest g) {
+  //    return groupRepo.findById(g.getId()).orElse(null) != null;
+  //  }
 
   private Group addGroup(CreateGroupRequest g) {
     return groupRepo.save(

@@ -26,7 +26,6 @@ public class JwtService {
     private Long jwtExpiration;
     @Value("${application.security.jwt.refresh-token.expiration}")
     private Long refreshExpiration;
-    private final AuthenticationServiceImpl service;
     private final StudentRepo studentRepo;
 
     public String extractEmail(String token) {
@@ -65,12 +64,6 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
-        boolean flag = extractExpiration(token).before(new Date());
-        String email = extractEmail(token);
-        var student = studentRepo.findByEmail(email).orElse(null);
-        if(flag && student != null) {
-            service.revokeAllStudentToken(student);
-        }
         return extractExpiration(token).before(new Date());
     }
 

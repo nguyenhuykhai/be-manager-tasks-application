@@ -6,9 +6,12 @@ import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.Resquest.UpdateLinkRequest;
 import com.example.ProTaskifyAPI.Models.Group;
 import com.example.ProTaskifyAPI.Models.Student;
+import com.example.ProTaskifyAPI.Models.StudentTask;
+import com.example.ProTaskifyAPI.Models.StudentTaskCompositeKey;
 import com.example.ProTaskifyAPI.Repositories.GroupRepo;
 import com.example.ProTaskifyAPI.Repositories.StudentRepo;
 import com.example.ProTaskifyAPI.Repositories.StudentTaskRepo;
+import com.example.ProTaskifyAPI.Repositories.TaskRepo;
 import com.example.ProTaskifyAPI.Services.StudentService;
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -35,6 +38,7 @@ public class StudentServiceImpl implements StudentService {
   private final GroupRepo groupRepo;
   private final StudentTaskRepo studentTaskRepo;
   private final JwtService jwtService;
+  private final TaskRepo taskRepo;
   private List<ListStudentResponse> studentList;
 
   @Override
@@ -178,6 +182,25 @@ public class StudentServiceImpl implements StudentService {
     } catch (Exception e) {
       return ResponseEntity.status(HttpStatus.NOT_FOUND)
           .body(new ResponseObject("Failed", "Not found student", e.getMessage()));
+    }
+  }
+
+  @Override
+  public ResponseEntity<ResponseObject> demandTask(Integer taskId, Integer studentId) {
+    try {
+      var task = taskRepo.findById(taskId).orElse(null);
+      var student = studentRepo.findById(studentId).orElse(null);
+      StudentTask studentTask = StudentTask.builder()
+              .id(StudentTaskCompositeKey.builder()
+                      .student(studentId)
+                      .task(taskId)
+                      .build())
+              .student(student)
+              .task(task)
+              .build();
+      return ResponseEntity.ok(new ResponseObject("Successful", "Student Task Created", studentTaskRepo.save(studentTask)));
+    } catch (Exception e) {
+      return ResponseEntity.ok(new ResponseObject("Failed", "Failed to create student task ( check taskId, studentId )", null));
     }
   }
 

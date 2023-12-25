@@ -33,6 +33,13 @@ public class StudentController {
         return studentService.updateLink(obj);
     }
 
+    @PostMapping("/demand/task")
+    public ResponseEntity<ResponseObject> demandTask(
+            @RequestParam(name = "taskId", required = true) Integer taskId,
+            @RequestParam(name = "studentID", required = true) Integer studentID) {
+        return studentService.demandTask(taskId, studentID);
+    }
+
     @PutMapping("/invite-group")
     public ResponseEntity<ResponseObject> sendInvitation(
             @RequestParam(name = "groupID", required = true) Integer groupID,

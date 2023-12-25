@@ -1,6 +1,6 @@
 package com.example.ProTaskifyAPI.ServiceImpl;
 
-import com.example.ProTaskifyAPI.DTO.Response.ListStudentResponse;
+import com.example.ProTaskifyAPI.DTO.Response.ListStudentResponseV1;
 import com.example.ProTaskifyAPI.DTO.Response.TotalTasksResponse;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.Resquest.UpdateLinkRequest;
@@ -39,7 +39,7 @@ public class StudentServiceImpl implements StudentService {
   private final StudentTaskRepo studentTaskRepo;
   private final JwtService jwtService;
   private final TaskRepo taskRepo;
-  private List<ListStudentResponse> studentList;
+  private List<ListStudentResponseV1> studentList;
 
   @Override
   public boolean checkIfStudentInClass(int studentID) {

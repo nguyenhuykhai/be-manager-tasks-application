@@ -57,7 +57,6 @@ public class GroupServiceImpl implements GroupService {
           GroupProjectDetailsDTO.builder()
               .group_id(group.getGroup_id())
               .classID(group.getClassID())
-              .groupStudents(group.getGroupStudents())
               .projectID(project)
               .groupStudents(student)
               .group_name(group.getGroup_name())

@@ -1,10 +1,12 @@
 package com.example.ProTaskifyAPI.ServiceImpl;
 
+import com.example.ProTaskifyAPI.Repositories.StudentRepo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@RequiredArgsConstructor
 public class JwtService {
     @Value("${application.security.jwt.secret-key}")
     private String secretKey;
@@ -23,6 +26,8 @@ public class JwtService {
     private Long jwtExpiration;
     @Value("${application.security.jwt.refresh-token.expiration}")
     private Long refreshExpiration;
+    private final AuthenticationServiceImpl service;
+    private final StudentRepo studentRepo;
 
     public String extractEmail(String token) {
         return extraClaims(token, Claims::getSubject);
@@ -60,6 +65,12 @@ public class JwtService {
     }
 
     private boolean isTokenExpired(String token) {
+        boolean flag = extractExpiration(token).before(new Date());
+        String email = extractEmail(token);
+        var student = studentRepo.findByEmail(email).orElse(null);
+        if(flag && student != null) {
+            service.revokeAllStudentToken(student);
+        }
         return extractExpiration(token).before(new Date());
     }
 

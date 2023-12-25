@@ -20,4 +20,5 @@ public interface StudentService {
     ResponseEntity<ResponseObject> getTotalTasksStatus(Integer ProjectID);
 
     ResponseEntity<ResponseObject> demandTask(Integer taskId, Integer studentId);
+
 }

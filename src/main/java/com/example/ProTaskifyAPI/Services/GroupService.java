@@ -16,5 +16,7 @@ public interface GroupService {
     ResponseEntity<ResponseObject> findStudentTask(int groupId, int classId);
 
     ResponseEntity<ResponseObject> chooseTopic(Integer topicId, Integer groupId);
+
+    ResponseEntity<ResponseObject> getTotalTasksGroupStatus(Integer projectID, Integer groupId);
 //    ResponseEntity<ResponseObject> chooseTopic(String topic);
 }

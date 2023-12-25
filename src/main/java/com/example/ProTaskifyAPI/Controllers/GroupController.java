@@ -30,11 +30,21 @@ public class GroupController {
         return groupService.findStudentsTasks(groupId, classId);
     }
 
+    @GetMapping("/tasks/status")
+    public ResponseEntity<ResponseObject> getGroup_Tasks_Status(
+            @RequestParam(name = "Project_id") Integer projectID,
+            @RequestParam(name = "Group_id") Integer groupId
+    ) {
+        return groupService.getTotalTasksGroupStatus(projectID, groupId);
+    }
+
     @GetMapping("/individual/tasks")
     public ResponseEntity<ResponseObject> studentTask(@RequestParam(name = "groupId") int groupId,
                                                      @RequestParam(name = "classId") int classId) {
         return groupService.findStudentTask(groupId, classId);
     }
+
+
 
     @PostMapping("/create/{studentId}")
     public ResponseEntity<ResponseObject> createGroup(@RequestBody CreateGroupRequest group,

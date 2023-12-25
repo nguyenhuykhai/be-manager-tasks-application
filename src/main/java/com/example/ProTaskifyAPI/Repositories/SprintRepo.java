@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface SprintRepo extends JpaRepository<Sprint, Integer> {
@@ -16,4 +17,5 @@ public interface SprintRepo extends JpaRepository<Sprint, Integer> {
     where s.deleted = false and s.end_date < current_date and s.status = 'Pending' 
 """)
     List<Sprint> findAllMissDeadlineSprints();
+
 }

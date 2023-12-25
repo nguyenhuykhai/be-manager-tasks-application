@@ -1,6 +1,7 @@
 package com.example.ProTaskifyAPI.Controllers;
 
 import com.example.ProTaskifyAPI.DTO.Response.AuthenticationResponse;
+import com.example.ProTaskifyAPI.DTO.Response.LoginResponseObject;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.Resquest.AuthenticationRequest;
 import com.example.ProTaskifyAPI.DTO.StudentDTO;
@@ -34,7 +35,7 @@ public class AuthenticateController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseObject> register(
+    public ResponseEntity<LoginResponseObject> register(
             @RequestBody AuthenticationRequest request
     ) {
         return services.login(request);

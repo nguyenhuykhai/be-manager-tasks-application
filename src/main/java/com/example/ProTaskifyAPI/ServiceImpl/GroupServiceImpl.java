@@ -3,6 +3,7 @@ package com.example.ProTaskifyAPI.ServiceImpl;
 import com.example.ProTaskifyAPI.DTO.GroupDTO;
 import com.example.ProTaskifyAPI.DTO.Response.GroupProjectDetailsDTO;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
+import com.example.ProTaskifyAPI.DTO.Resquest.CreateGroupRequest;
 import com.example.ProTaskifyAPI.Models.Group;
 import com.example.ProTaskifyAPI.Repositories.*;
 import com.example.ProTaskifyAPI.Services.GroupService;
@@ -34,8 +35,8 @@ public class GroupServiceImpl implements GroupService {
   
   private final StudentRepo studentRepo;
   @Override
-  public ResponseEntity<ResponseObject> createGroup(GroupDTO g) {
-    if (checkExistedGroup(g)) {
+  public ResponseEntity<ResponseObject> createGroup(CreateGroupRequest g) {
+    if (false) {
       return ResponseEntity.status(HttpStatus.CONFLICT)
           .body(new ResponseObject("Failed", "Group is already existed", null));
     } else {
@@ -123,14 +124,13 @@ public class GroupServiceImpl implements GroupService {
     }
   }
 
-  private boolean checkExistedGroup(GroupDTO g) {
-    return groupRepo.findById(g.getId()).orElse(null) != null;
-  }
+//  private boolean checkExistedGroup(CreateGroupRequest g) {
+//    return groupRepo.findById(g.getId()).orElse(null) != null;
+//  }
 
-  private Group addGroup(GroupDTO g) {
+  private Group addGroup(CreateGroupRequest g) {
     return groupRepo.save(
         Group.builder()
-            .group_id(g.getId())
             .group_name(g.getName())
             .score(g.getScore())
             .classID(classRepo.findById(g.getClassID()).orElse(null))

@@ -40,6 +40,7 @@ public class Class {
     private Set<Student> classStudents = new HashSet<>();
 
     @OneToMany(mappedBy = "classID")
+    @JsonManagedReference
     private Set<Group> groupStudents = new HashSet<>();
 
 }

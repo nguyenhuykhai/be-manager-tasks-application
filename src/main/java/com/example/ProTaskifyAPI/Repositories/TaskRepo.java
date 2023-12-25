@@ -19,7 +19,8 @@ public interface TaskRepo extends JpaRepository<Task, Integer> {
     left join Feature f on f.feature_id = t.feature.feature_id
     left join Process p on p.feature.feature_id = f.feature_id
     left join Sprint s on s.sprint_id = p.sprint.sprint_id
-    where s.deleted = false and s.end_date < current_date and t.status = 'Pending' and s.status = 'Pending'
+    where s.deleted = false and s.end_date < current_date and t.status = 'Pending' and s.status = 'Pending' and t.deleted = false
 """)
   List<Task> findAllMissDeadlineTasks();
+
 }

@@ -21,7 +21,7 @@ public class ProjectController {
         return projectService.findGroupProjectDetails(groupId, classId);
     }
 
-    @GetMapping("/non-chose/project")
+    @GetMapping("/non-choose/project")
     public ResponseEntity<ResponseObject> getAll_NonChoose_Project() {
         return projectService.getAll_NonChoose_Project();
     }

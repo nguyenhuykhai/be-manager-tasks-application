@@ -1,6 +1,7 @@
 package com.example.ProTaskifyAPI.Services;
 
 import com.example.ProTaskifyAPI.DTO.Response.AuthenticationResponse;
+import com.example.ProTaskifyAPI.DTO.Response.LoginResponseObject;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
 import com.example.ProTaskifyAPI.DTO.Resquest.AuthenticationRequest;
 import com.example.ProTaskifyAPI.DTO.StudentDTO;
@@ -14,7 +15,7 @@ import java.io.IOException;
 public interface AuthenticationService {
     ResponseEntity<AuthenticationResponse> register(StudentDTO dto);
 
-    ResponseEntity<ResponseObject> login(AuthenticationRequest request);
+    ResponseEntity<LoginResponseObject> login(AuthenticationRequest request);
 
     void refresh(HttpServletRequest request, HttpServletResponse response) throws IOException;
 

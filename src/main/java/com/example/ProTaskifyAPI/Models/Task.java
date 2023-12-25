@@ -25,6 +25,9 @@ public class Task {
     @Column(name = "status", length = 100)
     private String status;
 
+    @Column(name = "deleted")
+    private boolean deleted;
+
     @Column(name = "feedback", length = 100)
     private String feedback;
 

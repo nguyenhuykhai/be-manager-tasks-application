@@ -2,6 +2,7 @@ package com.example.ProTaskifyAPI.Controllers;
 
 import com.example.ProTaskifyAPI.DTO.GroupDTO;
 import com.example.ProTaskifyAPI.DTO.ResponseObject;
+import com.example.ProTaskifyAPI.DTO.Resquest.CreateGroupRequest;
 import com.example.ProTaskifyAPI.Services.GroupService;
 import com.example.ProTaskifyAPI.Services.StudentService;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +37,7 @@ public class GroupController {
     }
 
     @PostMapping("/create/{studentId}")
-    public ResponseEntity<ResponseObject> createGroup(@RequestBody GroupDTO group,
+    public ResponseEntity<ResponseObject> createGroup(@RequestBody CreateGroupRequest group,
                                                       @PathVariable("studentId") int studentId){
         if(studentService.checkIfStudentInClass(studentId)){
             studentService.setLeader(studentId);

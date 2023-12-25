@@ -51,6 +51,7 @@ public class Project {
     private String non_functional_requirements;
 
     @OneToMany(mappedBy = "projectID")
+    @JsonManagedReference
     private Set<Group> groupSet = new HashSet<>();
 
     @OneToMany(mappedBy = "project")

@@ -8,4 +8,8 @@ public interface TaskService {
     void checkMissDeadline();
 
     ResponseEntity<ResponseObject> createTask(Integer featureId, CreateTaskRequest taskRequest);
+
+    ResponseEntity<ResponseObject> submitTask(Integer taskId);
+
+    ResponseEntity<ResponseObject> changeStatus_Finished(Integer taskId);
 }

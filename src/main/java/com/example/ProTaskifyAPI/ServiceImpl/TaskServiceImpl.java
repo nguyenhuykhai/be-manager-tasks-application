@@ -89,4 +89,43 @@ public class TaskServiceImpl implements TaskService {
           .body(new ResponseObject("Failed", "Create failed", null));
     }
   }
+
+  @Override
+  public ResponseEntity<ResponseObject> submitTask(Integer taskId) {
+    try {
+      var task = taskRepo.findById(taskId).orElse(null);
+      if(task != null) {
+        task.setStatus("Verified");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ResponseObject("Successful", "Task status updated", null));
+      } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ResponseObject("Failed", "Not found task", null));
+      }
+
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.CONFLICT)
+              .body(new ResponseObject("Failed", "Internal error", e.getMessage()));
+    }
+
+  }
+
+  @Override
+  public ResponseEntity<ResponseObject> changeStatus_Finished(Integer taskId) {
+    try {
+      var task = taskRepo.findById(taskId).orElse(null);
+      if(task != null) {
+        task.setStatus("Finished");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ResponseObject("Successful", "Task status updated", null));
+      } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ResponseObject("Failed", "Not found task", null));
+      }
+
+    } catch (Exception e) {
+      return ResponseEntity.status(HttpStatus.CONFLICT)
+              .body(new ResponseObject("Failed", "Internal error", e.getMessage()));
+    }
+  }
 }

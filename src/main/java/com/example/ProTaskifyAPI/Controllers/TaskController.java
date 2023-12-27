@@ -19,4 +19,16 @@ public class TaskController {
             @RequestBody CreateTaskRequest taskRequest) {
         return taskService.createTask(featureId, taskRequest);
     }
+
+    @PutMapping("/submit/verified")
+    ResponseEntity<ResponseObject> submitTask(
+            @RequestParam(value = "taskId") Integer taskId) {
+        return taskService.submitTask(taskId);
+    }
+
+    @PutMapping("/submit/Finished")
+    ResponseEntity<ResponseObject> commitTask(
+            @RequestParam(value = "taskId") Integer taskId) {
+        return taskService.changeStatus_Finished(taskId);
+    }
 }

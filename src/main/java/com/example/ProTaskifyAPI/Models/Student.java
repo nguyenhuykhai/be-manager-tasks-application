@@ -34,11 +34,11 @@ public class Student implements UserDetails {
 
   @ManyToOne
   @JoinColumn(name = "class_id")
-  @JsonBackReference
+//  @JsonBackReference
   private Class classID;
 
   @ManyToOne
-  @JsonBackReference
+//  @JsonBackReference
   @JoinColumn(name = "group_id")
   private Group groupID;
 

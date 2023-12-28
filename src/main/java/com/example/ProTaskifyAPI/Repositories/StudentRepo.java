@@ -27,7 +27,7 @@ public interface StudentRepo extends JpaRepository<Student, Integer> {
     select new com.example.ProTaskifyAPI.DTO.StudentDTOV2(s.student_id, s.student_name, s.classID, s.groupID, s.score, s.link_facebook, s.email, s.github, s.skills, s.about, s.picture, s.status, s.is_leader)
     from Group g
     left join Student s on s.groupID.group_id = g.group_id
-    where g.group_id = :group_id and g.classID.class_id = :class_id and g.status = true
+    where g.group_id = :group_id and s.classID.class_id = :class_id and g.status = true
 """)
   Set<StudentDTOV2> findGroupProjectDetails(
       @Param(value = "group_id") Integer group_id, @Param(value = "class_id") Integer class_id);

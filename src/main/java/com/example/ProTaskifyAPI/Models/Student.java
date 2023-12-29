@@ -9,11 +9,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import  lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -138,5 +140,4 @@ public class Student implements UserDetails {
     authorities.add(new SimpleGrantedAuthority("ROLE_" + (this.is_leader ? Role.LEADER.name() : Role.STUDENT.name())));
     return authorities;
   }
-
 }

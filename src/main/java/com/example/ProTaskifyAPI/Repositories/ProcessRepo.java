@@ -4,6 +4,7 @@ import com.example.ProTaskifyAPI.DTO.ProcessDTO;
 import com.example.ProTaskifyAPI.DTO.Response.ProcessDetailsResponse;
 import com.example.ProTaskifyAPI.Models.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -32,7 +33,7 @@ public interface ProcessRepo extends JpaRepository<Process, ProcessCompositeKey>
     left join Feature f on f.feature_id = pro.feature.feature_id
     where g.group_id = :group_id and g.classID.class_id = :class_id and g.status = true and p.deleted = false
 """)
-    Set<ProcessDetailsResponse> findProcessDetails(@Param(value = "group_id") Integer group_id, @Param(value = "class_id") Integer class_id);
+    ArrayList<ProcessDetailsResponse> findProcessDetails(@Param(value = "group_id") Integer group_id, @Param(value = "class_id") Integer class_id);
 
     List<Process> findProcessByFeature(Feature feature);
 

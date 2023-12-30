@@ -317,7 +317,11 @@ Hỗ Trợ Đa Trình Duyệt: Đảm bảo hoạt động trơn tru trên các 
 
 ## Tài liệu | Documentation
 
+ [Design Figma](https://github.com/nguyenhuykhai/manager-tasks-application).
+
  [Function Requirement](https://docs.google.com/document/d/1CPjPpIMVkAp9KRoCvXRMUoL48Fq_O6yInnZExIvpzVI/edit?fbclid=IwAR32KoldKVxeqRD4jj6fraiftt8D1twY8l4e1sg16PIT_dbG97FOcaQiVsI).
+
+ [Task Schedule](https://docs.google.com/spreadsheets/d/1JT4wJQmYRBn1k7oGymkNiErLl3mzwQr-MO5kbobTIZM/edit?usp=sharing).
 
 ---
 

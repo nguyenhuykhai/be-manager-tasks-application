@@ -11,7 +11,11 @@ import lombok.NoArgsConstructor;
 @Builder
 public class UpdateLinkRequest {
     private int student_id;
+    private String email;
+    private String student_name;
+    private String picture;
+    private String about;
+    private String skills;
     private String link_facebook;
     private String github;
-    private String email;
 }

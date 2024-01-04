@@ -208,6 +208,15 @@ public class StudentServiceImpl implements StudentService {
   public ResponseEntity<ResponseObject> updateLink(UpdateLinkRequest obj) {
     Student student = studentRepo.findById(obj.getStudent_id()).orElse(null);
     if (student != null) {
+      if (obj.getStudent_name() != null) {
+        student.setStudent_name(obj.getStudent_name());
+      }
+      if (obj.getAbout() != null) {
+        student.setAbout(obj.getAbout());
+      }
+      if (obj.getSkills() != null) {
+        student.setSkills(obj.getSkills());
+      }
       if (isValidLinkFacebook(obj.getLink_facebook())) {
         student.setLink_facebook(obj.getLink_facebook());
       }

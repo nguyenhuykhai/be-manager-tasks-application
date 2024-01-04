@@ -317,7 +317,11 @@ Hỗ Trợ Đa Trình Duyệt: Đảm bảo hoạt động trơn tru trên các 
 
 ## Tài liệu | Documentation
 
+ [Design Figma](https://www.figma.com/proto/57qV2NvdVqTxqPloE6yZ9U/Design?page-id=1082%3A453&type=design&node-id=1082-517&viewport=-265%2C163%2C0.23&t=rbpD6dJvGwxeLbIB-1&scaling=scale-down&starting-point-node-id=1082%3A517&mode=design).
+
  [Function Requirement](https://docs.google.com/document/d/1CPjPpIMVkAp9KRoCvXRMUoL48Fq_O6yInnZExIvpzVI/edit?fbclid=IwAR32KoldKVxeqRD4jj6fraiftt8D1twY8l4e1sg16PIT_dbG97FOcaQiVsI).
+
+ [Task Schedule](https://docs.google.com/spreadsheets/d/1JT4wJQmYRBn1k7oGymkNiErLl3mzwQr-MO5kbobTIZM/edit?usp=sharing).
 
 ---
 
